@@ -28,9 +28,12 @@ public class UserMenuController implements Initializable{
 	@FXML private Button newTeamButton;
 	@FXML private ChoiceBox<String> selectTeamChoiceBox;
 	private String[] teams = {"FAA Gu11", "SYJS Bu11"}; //NEEDS UPDATE
+	@FXML private Button submitButton;
+	
 	@FXML private AnchorPane userMenuScenePane;
 	
-
+	private String selectedTeam = null;
+	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
@@ -74,7 +77,7 @@ public class UserMenuController implements Initializable{
 	}
 
 	public void getTeam(ActionEvent event) {
-		String selectedTeam = selectTeamChoiceBox.getValue();
+		selectedTeam = selectTeamChoiceBox.getValue();
 		
 //		if (selectedTeam == "FAA Gu11") {
 //			FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
@@ -89,6 +92,27 @@ public class UserMenuController implements Initializable{
 //			stage.show();
 //		}
 		
+	}
+	public void visitTeamMenu(ActionEvent event) {
+		if (selectedTeam == null) {
+			return;
+		}
+		
+		else {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
+			root = loader.load();
+			
+			TeamMenuController TeamMenuController = loader.getController();
+			TeamMenuController.displayName(selectedTeam);
+			
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			
+		}
+		return;
+
 	}
 
 

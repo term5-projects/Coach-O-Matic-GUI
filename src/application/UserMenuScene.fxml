@@ -14,8 +14,9 @@
          </font>
       </Label>
       <Button fx:id="logoutButton" layoutX="523.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-      <Button fx:id="newTeamButton" layoutX="95.0" layoutY="188.0" mnemonicParsing="false" onAction="#addTeam" text="Create New Team" />
-      <ChoiceBox fx:id="selectTeamChoiceBox" layoutX="324.0" layoutY="188.0" prefWidth="150.0" />
-      <Label layoutX="353.0" layoutY="161.0" text="Select a Team" />
+      <Button fx:id="newTeamButton" layoutX="40.0" layoutY="188.0" mnemonicParsing="false" onAction="#addTeam" text="Create New Team" />
+      <ChoiceBox fx:id="selectTeamChoiceBox" layoutX="242.0" layoutY="188.0" prefWidth="150.0" />
+      <Label layoutX="242.0" layoutY="162.0" text="Select a Team" />
+      <Button fx:id="submitButton" layoutX="408.0" layoutY="188.0" mnemonicParsing="false" text="Submit" />
    </children>
 </AnchorPane>
