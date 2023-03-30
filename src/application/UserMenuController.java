@@ -94,25 +94,30 @@ public class UserMenuController implements Initializable{
 		
 	}
 	public void visitTeamMenu(ActionEvent event) throws IOException {
-		if (selectedTeam == null) {
-			return;
-		}
-		
-		else {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
-			root = loader.load();
+			String teamname = selectTeamChoiceBox.getValue();
+			if (teamname == null) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Select Team");
+				alert.setHeaderText("Invalid Input");
+				alert.setContentText("Please select one of the teams from the the drop down list.");
+				
+				if (alert.showAndWait().get() == ButtonType.OK) {
+				}
+			}
 			
-			TeamMenuController TeamMenuController = loader.getController();
-			TeamMenuController.displayName(selectedTeam);
-			
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-			
-		}
-		return;
-
+			else {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
+				root = loader.load();
+				
+				TeamMenuController teamMenuController = loader.getController();
+				
+				teamMenuController.displayTeamName(teamname);
+				
+				stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+				scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
+			}
 	}
 
 
