@@ -53,7 +53,7 @@ public class TeamMenuController{
 	@FXML private AnchorPane teamMenuScenePane;
 	
 	@FXML private CheckBox player_one;
-	@FXMLprivate CheckBox player_two;
+	@FXML private CheckBox player_two;
 	@FXML private CheckBox player_three;
 	@FXML private CheckBox player_four;
 	@FXML private CheckBox player_five;
