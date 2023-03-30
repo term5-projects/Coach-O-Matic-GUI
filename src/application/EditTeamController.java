@@ -99,7 +99,7 @@ public class EditTeamController implements Initializable{
 
 
 	
-	public void logout(ActionEvent event)
+	public void logout(ActionEvent event)throws IOException
 	{
 		
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -108,9 +108,15 @@ public class EditTeamController implements Initializable{
 		alert.setContentText("Do you want to save before exiting?");
 		
 		if (alert.showAndWait().get() == ButtonType.OK) {
-			stage = (Stage) editTeamPane.getScene().getWindow();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
+			root = loader.load();
+					
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
 			System.out.println("You successfully logged out!");
-			stage.close();
+
 		}
 	}
 	

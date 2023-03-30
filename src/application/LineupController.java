@@ -1,11 +1,14 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -30,28 +33,17 @@ public class LineupController{
 	private Parent root;
 	
 	
-	public void logout(ActionEvent event)
+	public void logout(ActionEvent event) throws IOException
 
 	{
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-
-		alert.setTitle("Logout");
-
-		alert.setHeaderText("You're about to logout!");
-
-		alert.setContentText("Do you want to save before exiting?");
-
-
-		if (alert.showAndWait().get() == ButtonType.OK) {
-
-			stage = (Stage) LineupScenePane.getScene().getWindow();
-
-			System.out.println("You successfully logged out!");
-
-			stage.close();
-
-		}
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
+		root = loader.load();
+				
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 
 	}
 
