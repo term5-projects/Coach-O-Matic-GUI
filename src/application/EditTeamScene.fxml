@@ -3,7 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,10 +21,15 @@
       <Label layoutX="23.0" layoutY="109.0" text="Shifts per Game:" />
       <Label fx:id="FormationLabel" layoutX="23.0" layoutY="150.0" text="Formation:" />
       <TextField fx:id="TeamNameTextField" layoutX="165.0" layoutY="66.0" />
-      <Spinner fx:id="ShiftsSpinner" layoutX="165.0" layoutY="105.0" />
-      <ChoiceBox fx:id="FormationChoiceBox" layoutX="165.0" layoutY="146.0" prefWidth="150.0" />
+      <Spinner fx:id="shiftsSpinner" layoutX="165.0" layoutY="105.0" />
+      <ChoiceBox fx:id="formationChoiceBox" layoutX="165.0" layoutY="146.0" prefWidth="150.0" />
       <Label layoutX="23.0" layoutY="192.0" text="Players" />
-      <Button fx:id="AddPlayerButton" layoutX="480.0" layoutY="188.0" mnemonicParsing="false" text="Add Player" />
-      <Slider layoutX="336.0" layoutY="212.0" orientation="VERTICAL" />
+      <Button fx:id="AddPlayerButton" layoutX="336.0" layoutY="188.0" mnemonicParsing="false" text="Add Player" />
+      <ScrollPane layoutX="107.0" layoutY="188.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <ListView fx:id="playerListView" prefHeight="200.0" prefWidth="200.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="saveTeamButton" layoutX="516.0" layoutY="355.0" mnemonicParsing="false" text="Save" />
    </children>
 </AnchorPane>

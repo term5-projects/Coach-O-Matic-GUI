@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,12 +21,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class EditTeamController {
+public class EditTeamController implements Initializable{
 
 	@FXML Label usernameLabel;
 	
 	@FXML private Button logoutButton;
 	@FXML private Button addPlayerButton;
+	@FXML private Button saveTeamButton;
 	
 	@FXML private ChoiceBox<String> formationChoiceBox;
 	private String[] formations = {"2-3-1", "2-2-2"}; //NEEDS UPDATE should use enum here
@@ -40,8 +42,9 @@ public class EditTeamController {
 //	private Scene scene;
 //	private Parent root;
 	int num_shifts;
-	
-	public void initializeSpinner(URL arg0, ResourceBundle arg1) {
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		formationChoiceBox.getItems().addAll(formations);
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
 		
 		valueFactory.setValue(1);
@@ -49,16 +52,12 @@ public class EditTeamController {
 		shiftsSpinner.setValueFactory(valueFactory);
 		
 		num_shifts = shiftsSpinner.getValue();
-	}
-	
-	public void initializeChoiceBox(URL arg0, ResourceBundle arg1) {
-		formationChoiceBox.getItems().addAll(formations);
-		//formationChoiceBox.setOnAction(this::getFormation);
 		
 	}
-//	public void getFormation(URL arg0, ResourceBundle arg1) {
-//		String formation = formationChoiceBox.getValue();
-//	}
+	
+
+	
+
 	
 	public void logout(ActionEvent event)
 	{
@@ -86,4 +85,8 @@ public class EditTeamController {
 //		stage.setScene(scene);
 //		stage.show();
 //	}
+	
+	public void saveTeam(ActionEvent event) {
+		//Save team changes TODO
+	}
 }

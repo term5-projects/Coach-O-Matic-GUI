@@ -93,7 +93,7 @@ public class UserMenuController implements Initializable{
 //		}
 		
 	}
-	public void visitTeamMenu(ActionEvent event) {
+	public void visitTeamMenu(ActionEvent event) throws IOException {
 		if (selectedTeam == null) {
 			return;
 		}
