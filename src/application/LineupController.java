@@ -16,7 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class LineupController implements Initializable{
+public class LineupController{
 	
 	@FXML Label formationLabel;
 	
@@ -29,12 +29,6 @@ public class LineupController implements Initializable{
 	private Scene scene;
 	private Parent root;
 	
-	@Override
-
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-
-	}
 	
 	public void logout(ActionEvent event)
 

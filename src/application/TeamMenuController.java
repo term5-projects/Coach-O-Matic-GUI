@@ -39,55 +39,27 @@ import javafx.stage.Stage;
 
 
 
-public class TeamMenuController implements Initializable{
+public class TeamMenuController{
 
 
-	@FXML 
-	
-	private Button logoutButton;
+	@FXML private Button logoutButton;
 
-	@FXML 
-	
-	private Button createLineupButton;
+	@FXML private Button createLineupButton;
 
-	@FXML 
+	@FXML private Button editTeamButton;
 	
-	private Button editTeamButton;
+	@FXML private Label teamnamelabel;
 	
-	@FXML 
+	@FXML private AnchorPane teamMenuScenePane;
 	
-	private Label teamnamelabel;
-	
-	@FXML 
-	
-	private AnchorPane teamMenuScenePane;
-	
-	@FXML
-	
-	private CheckBox player_one;
-	@FXML
-	
-	private CheckBox player_two;
-	@FXML
-	
-	private CheckBox player_three;
-	@FXML
-	
-	private CheckBox player_four;
-	@FXML
-	
-	private CheckBox player_five;
-	@FXML
-	
-	private CheckBox player_six;
-	@FXML
-	
-	private CheckBox player_seven;
-	@FXML
-	
-	private CheckBox player_eight;
-	
-
+	@FXML private CheckBox player_one;
+	@FXMLprivate CheckBox player_two;
+	@FXML private CheckBox player_three;
+	@FXML private CheckBox player_four;
+	@FXML private CheckBox player_five;
+	@FXML private CheckBox player_six;
+	@FXML private CheckBox player_seven;
+	@FXML private CheckBox player_eight;
 
 	private Stage stage;
 
@@ -95,14 +67,6 @@ public class TeamMenuController implements Initializable{
 
 	private Parent root;
 
-	
-
-	@Override
-
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-
-	}
 	
 	public void displayTeamName(String TeamName) {
 		teamnamelabel.setText( TeamName + " Menu");
