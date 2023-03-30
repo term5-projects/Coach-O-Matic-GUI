@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 
 import java.util.ResourceBundle;
@@ -39,6 +40,7 @@ public class EditTeamController implements Initializable{
 
 	@FXML Label usernameLabel;
 	
+	@FXML private Button returnButton;
 	@FXML private Button logoutButton;
 	@FXML private Button addPlayerButton;
 	@FXML private Button saveTeamButton;
@@ -116,18 +118,19 @@ public class EditTeamController implements Initializable{
 	 * 
 	 * @param player
 	 * @return void
+	 * @throws IOException 
 	 */
-	public void editPlayer(ActionEvent event)//TODO -> Player
+	public void editPlayer(ActionEvent event) throws IOException//TODO -> Player
 	{		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPlayerScene.fxml"));
 		root = loader.load();
-		
-		EditPlayerController.getController();
-		
+				
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		
+		//TODO tell BE which player to edit
 	}
 	
 	
@@ -136,13 +139,31 @@ public class EditTeamController implements Initializable{
 //	}
 	
 	public void deletePlayer(ActionEvent event) {
-		//TODO
+		//TODO 
 	}
-	public void addPlayer(ActionEvent event) {
-		//TODO
+	public void addPlayer(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPlayerScene.fxml"));
+		root = loader.load();
+				
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	public void saveTeam(ActionEvent event) {
 		//Save team changes TODO
+	}
+	
+	public void returnToPreviousScene(ActionEvent event) throws IOException
+	{		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
+		root = loader.load();
+				
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+
 	}
 }
