@@ -10,7 +10,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 
-
+/**
+* <h1>Main</h1>
+* Main class is the top level class for the Coach-O-Matic GUI.
+* Starts at the login scene, and has a logout method that prompts for user to save changes before exiting.  
+*
+* @author  Grace Pearcey
+* @version 1.0
+* @since   2023-03-29 
+*/
 public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
