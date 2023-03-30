@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -27,7 +28,7 @@ public class LoginController {
 
 		@FXML TextField usernameTextField;
 		
-		@FXML TextField passwordTextField;
+		@FXML PasswordField passwordField;
 		
 		private Stage stage;
 		private Scene scene;
@@ -42,7 +43,7 @@ public class LoginController {
 
 			
 			String username = usernameTextField.getText();
-			String password = passwordTextField.getText();
+			String password = passwordField.getText();
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
 			root = loader.load();
