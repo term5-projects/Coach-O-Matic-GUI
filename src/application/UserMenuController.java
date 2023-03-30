@@ -50,19 +50,18 @@ public class UserMenuController implements Initializable{
 	}
 	
 	
-	public void logout(ActionEvent event)
+	public void logout(ActionEvent event) throws IOException
+
 	{
-		
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Logout");
-		alert.setHeaderText("You're about to logout!");
-		alert.setContentText("Do you want to save before exiting?");
-		
-		if (alert.showAndWait().get() == ButtonType.OK) {
-			stage = (Stage) userMenuScenePane.getScene().getWindow();
-			System.out.println("You successfully logged out!");
-			stage.close();
-		}
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
+		root = loader.load();
+				
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+
 	}
 	public void addTeam(ActionEvent event)throws IOException
 	{		
