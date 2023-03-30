@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditTeamController">
    <children>
-      <Label layoutX="23.0" layoutY="20.0" text="Create Team">
+      <Label layoutX="23.0" layoutY="20.0" text="Edit Team">
          <font>
             <Font size="18.0" />
          </font>
@@ -24,12 +24,14 @@
       <Spinner fx:id="shiftsSpinner" layoutX="165.0" layoutY="105.0" />
       <ChoiceBox fx:id="formationChoiceBox" layoutX="165.0" layoutY="146.0" prefWidth="150.0" />
       <Label layoutX="23.0" layoutY="192.0" text="Players" />
-      <Button fx:id="AddPlayerButton" layoutX="336.0" layoutY="188.0" mnemonicParsing="false" text="Add Player" />
+      <Button fx:id="AddPlayerButton" layoutX="336.0" layoutY="264.0" mnemonicParsing="false" onAction="#addPlayer" text="New Player" />
       <ScrollPane layoutX="107.0" layoutY="188.0" prefHeight="200.0" prefWidth="200.0">
          <content>
-            <ListView fx:id="playerListView" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="playerListView" prefHeight="493.0" prefWidth="200.0" />
          </content>
       </ScrollPane>
-      <Button fx:id="saveTeamButton" layoutX="516.0" layoutY="355.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="saveTeamButton" layoutX="485.0" layoutY="355.0" mnemonicParsing="false" onAction="#saveTeam" text="Save Team" />
+      <Button fx:id="editPlayerButton" layoutX="336.0" layoutY="188.0" mnemonicParsing="false" onAction="#editPlayer" text="Edit Selected Player" />
+      <Button fx:id="deletePlayerButton" layoutX="336.0" layoutY="225.0" mnemonicParsing="false" onAction="#editPlayer" text="Delete Selected Player" />
    </children>
 </AnchorPane>
