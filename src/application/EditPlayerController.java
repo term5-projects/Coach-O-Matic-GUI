@@ -1,10 +1,14 @@
 package application;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,8 +21,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
+
+
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import org.controlsfx.control.CheckListView;
 
 /**
 * <h1>EditPlayerController</h1>
@@ -29,11 +39,15 @@ import java.util.ArrayList;
 * @version 1.0
 * @since   2023-03-29 
 */
-public class EditPlayerController {
+public class EditPlayerController implements Initializable{
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	
+	private String[] positions = {"GK", "LD", "RD"};
+	private String[] selectedPositions;
+	@FXML private CheckListView<String> positionsCheckListView;
 	
 	@FXML private Button returnButton;
 	@FXML private Button logoutButton;
@@ -53,7 +67,17 @@ public class EditPlayerController {
 	
 	//private Positions[] playerPositions = Positions.values(); TODO
 	//private ArrayList<String> playerPositions = new ArrayList<String>();
-	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		//Player List View
+		positionsCheckListView.getItems().addAll(positions);
+		positionsCheckListView.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super String>) new ListChangeListener<String>() {
+		     public void onChanged(ListChangeListener.Change<? extends String> c) {
+		         System.out.println(positionsCheckListView.getCheckModel().getCheckedItems());
+		     }
+		 });
+		
+	}
 	
 	
 	public void returnToPreviousScene(ActionEvent event) throws IOException
@@ -104,6 +128,9 @@ public class EditPlayerController {
 
 		}
 	}
+
+
+
 	
 	
 	

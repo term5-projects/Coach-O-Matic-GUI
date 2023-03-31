@@ -16,6 +16,10 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/gracepearcey/programs/javafx-sdk-19.0.2.1/lib/controlsfx-11.1.2.jar"/>
+	<classpathentry kind="lib" path="/home/gracepearcey/programs/javafx-sdk-19.0.2.1/lib/controlsfx-11.1.2.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
