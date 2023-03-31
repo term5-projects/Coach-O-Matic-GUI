@@ -46,7 +46,9 @@ public class EditPlayerController implements Initializable{
 	private Parent root;
 	
 	private String[] positions = {"GK", "LD", "RD"};
-	private String[] selectedPositions;
+
+	private ArrayList<String> selectedPositions =new ArrayList<>();
+
 	@FXML private CheckListView<String> positionsCheckListView;
 	
 	@FXML private Button returnButton;
@@ -73,7 +75,8 @@ public class EditPlayerController implements Initializable{
 		positionsCheckListView.getItems().addAll(positions);
 		positionsCheckListView.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super String>) new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
-		         System.out.println(positionsCheckListView.getCheckModel().getCheckedItems());
+		    	 selectedPositions.clear();
+		    	 selectedPositions.addAll(positionsCheckListView.getCheckModel().getCheckedItems());
 		     }
 		 });
 		

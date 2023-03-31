@@ -8,8 +8,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.CheckListView;
 
-
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -39,7 +40,7 @@ import javafx.stage.Stage;
 
 
 
-public class TeamMenuController{
+public class TeamMenuController implements Initializable{
 
 
 	@FXML private Button logoutButton;
@@ -52,21 +53,35 @@ public class TeamMenuController{
 	
 	@FXML private AnchorPane teamMenuScenePane;
 	
-	@FXML private CheckBox player_one;
-	@FXML private CheckBox player_two;
-	@FXML private CheckBox player_three;
-	@FXML private CheckBox player_four;
-	@FXML private CheckBox player_five;
-	@FXML private CheckBox player_six;
-	@FXML private CheckBox player_seven;
-	@FXML private CheckBox player_eight;
+	private String[] players = {"Misha", "Glyn", "Howard"};//TODO
+	@FXML private CheckListView<String> availablePlayersCheckListView;
+	
+	ArrayList<String> selectedPlayers =new ArrayList<>();
 
 	private Stage stage;
 
 	private Scene scene;
 
 	private Parent root;
-
+	
+	/**
+	 * Initializes the available players checklist. 
+	 * Clears then updates selectedPlayers every time a box is ticked.
+	 * @return void
+	 */
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		availablePlayersCheckListView.getItems().addAll(players);
+		availablePlayersCheckListView.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super String>) new ListChangeListener<String>() {
+		     public void onChanged(ListChangeListener.Change<? extends String> c) {
+		         selectedPlayers.clear();
+		    	 selectedPlayers.addAll(availablePlayersCheckListView.getCheckModel().getCheckedItems());
+		     }
+		 });
+	}
+		
+	
 	
 	public void displayTeamName(String TeamName) {
 		teamnamelabel.setText( TeamName + " Menu");
@@ -92,43 +107,10 @@ public class TeamMenuController{
 	public void switchToLineupScene(ActionEvent event)throws IOException
 
 	{	
-		ArrayList<String> selecteditems =new ArrayList<>();
-		
-		if (player_one.isSelected()) {
-			selecteditems.add("Andrew");
-		}
 
-		if (player_two.isSelected()) {
-			selecteditems.add("Reza");			
-		}
 		
-		if (player_three.isSelected()) {
-			selecteditems.add("Thumeera");
-		}
+		System.out.println("The dynamic array is: " + selectedPlayers);
 		
-		if (player_four.isSelected()) {
-			selecteditems.add("Ebrahim");
-		}
-		
-		if (player_five.isSelected()) {
-			selecteditems.add("Siu");
-		}
-		
-		if (player_six.isSelected()) {
-			selecteditems.add("Glyn");
-		}
-		
-		if (player_seven.isSelected()) {
-			selecteditems.add("Misha");
-		}
-		
-		if (player_eight.isSelected()) {
-			selecteditems.add("Rajeevan");
-		}
-		
-		System.out.println("The dynamic array is: " + selecteditems);
-		
-
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("LineupScene.fxml"));
 
 		root = loader.load();
