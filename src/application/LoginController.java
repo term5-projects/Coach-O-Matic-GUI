@@ -8,9 +8,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -43,24 +46,55 @@ public class LoginController {
 		* @return void
 		*/
 		public void login(ActionEvent event) throws IOException {
-
+			
 			
 			String username = usernameTextField.getText();
 			String password = passwordField.getText();
 			
 			//Check user credentials
+			if (username.isBlank() == true || password.isBlank() == true) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Login");
+				alert.setHeaderText("Invalid User Credentials");
+				alert.setContentText("Please try again.");
+				
+				if (alert.showAndWait().get() == ButtonType.OK) {
+				}
+			}
+			else {
+				//BE Connection - TODO
+				//bool validUser = findUser(username, password)
+				boolean validUser = true; //NEEDS UPDATE
+				if (validUser == true) {
+					
+					//load User Menu Scene
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
+					root = loader.load();
+					
+					UserMenuController userMenuController = loader.getController();
+					userMenuController.displayName(username);
+					
+					stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();		
+				}
+				else {
+					
+					//Alert User
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Login");
+					alert.setHeaderText("Invalid User Credentials");
+					alert.setContentText("Please try again.");
+					
+					if (alert.showAndWait().get() == ButtonType.OK) {
+					}					
+				}	
+				
+			}
+
 			
-			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
-			root = loader.load();
-			
-			UserMenuController userMenuController = loader.getController();
-			userMenuController.displayName(username);
-			
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
+
 		}
 		
 		public void createAccount(ActionEvent event) throws IOException {
