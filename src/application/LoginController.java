@@ -64,10 +64,11 @@ public class LoginController {
 			else {
 				//BE Connection - TODO
 				//bool validUser = findUser(username, password)
-				boolean validUser = true; //NEEDS UPDATE
+				boolean validUser = true; //TEMPORARY 
 				if (validUser == true) {
 					
-					//load User Menu Scene
+					//load User Menu Scene add get the correct user
+					//TODO - get a the correct user object
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
 					root = loader.load();
 					

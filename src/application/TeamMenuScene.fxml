@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="teamMenuScenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeamMenuController">
    <children>
-      <Label fx:id="teamnamelabel" layoutX="32.0" layoutY="34.0" text="[Team Name] Menu">
+      <Label fx:id="teamnamelabel" layoutX="206.0" layoutY="14.0" text="[Team Name] Menu">
          <font>
             <Font size="19.0" />
          </font>
@@ -27,5 +27,6 @@
         </content>
       </ScrollPane>
       <Label layoutX="252.0" layoutY="77.0" text="Select Players:" />
+      <Button fx:id="returnButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToPreviousScene" text="Return" />
    </children>
 </AnchorPane>
