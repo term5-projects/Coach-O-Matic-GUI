@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -13,5 +15,18 @@
             <Font size="19.0" />
          </font>
       </Label>
+      <TableView fx:id="LineupTable" layoutX="34.0" layoutY="73.0" prefHeight="294.0" prefWidth="531.0">
+        <columns>
+          <TableColumn fx:id="shiftcolumn" prefWidth="47.0" text="Shifts" />
+          <TableColumn fx:id="GKcolumn" prefWidth="44.0" text="GK" />
+            <TableColumn fx:id="LDcolumn" prefWidth="45.0" text="LD" />
+            <TableColumn fx:id="RDcolumn" prefWidth="58.0" text="RD" />
+            <TableColumn fx:id="LMcoolumn" prefWidth="55.0" text="LM" />
+            <TableColumn fx:id="CMcolumn" prefWidth="72.0" text="CM" />
+            <TableColumn fx:id="RMcolumn" prefWidth="62.0" text="RM" />
+            <TableColumn fx:id="STcolumn" prefWidth="62.0" text="ST" />
+            <TableColumn fx:id="Subcolumn" prefWidth="83.0" text="Sub" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
