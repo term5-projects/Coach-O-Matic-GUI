@@ -19,21 +19,17 @@ import javafx.stage.Stage;
 /**
 * <h1>LoginController</h1>
 * LoginController class prompts user for username and password and upon login, brings them to the user menu.
+* User can also create a new account. 
+* TODO - BE Connection
 * 
-* 
-* 
-* 
-*
 * @author  Grace Pearcey
 * @version 1.0
 * @since   2023-03-29 
 */
 public class LoginController {
 
-		@FXML Button createAccountButton;
-		
-		@FXML TextField usernameTextField;
-		
+		@FXML Button createAccountButton;		
+		@FXML TextField usernameTextField;		
 		@FXML PasswordField passwordField;
 		
 		private Stage stage;
@@ -42,6 +38,8 @@ public class LoginController {
 
 		/**
 	    * Brings user to UserMenuScene
+	    * TODO - BE Connection
+	    * 
 		* @param event
 		* @return void
 		*/
@@ -51,7 +49,7 @@ public class LoginController {
 			String username = usernameTextField.getText();
 			String password = passwordField.getText();
 			
-			//Check user credentials
+			//Check if user credentials missing
 			if (username.isBlank() == true || password.isBlank() == true) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Login");
@@ -82,7 +80,7 @@ public class LoginController {
 				}
 				else {
 					
-					//Alert User
+					//Alert User of invalid credentials
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Login");
 					alert.setHeaderText("Invalid User Credentials");
@@ -90,16 +88,17 @@ public class LoginController {
 					
 					if (alert.showAndWait().get() == ButtonType.OK) {
 					}					
-				}	
-				
+				}				
 			}
-
-			
-
 		}
 		
+		/**
+	    * Brings user to CreateAccount Scene.
+	    * 
+		* @param event
+		* @return void
+		*/
 		public void createAccount(ActionEvent event) throws IOException {
-
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateAccountScene.fxml"));
 			root = loader.load();
