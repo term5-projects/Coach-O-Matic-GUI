@@ -45,7 +45,7 @@ public class EditPlayerController implements Initializable{
 	private Scene scene;
 	private Parent root;
 	
-	private String[] positions = {"GK", "LD", "RD"};
+	private String[] positions = {"GK", "LD", "RD"};//TEMPORARY
 
 	private ArrayList<String> selectedPositions =new ArrayList<>();
 
@@ -67,8 +67,11 @@ public class EditPlayerController implements Initializable{
 	
 	@FXML private Label playerNameLabel;
 	
+	int min_positions = 2; //NEEDS UPDATE - BE should specify minimum number of positions player must play for algorithm to work
+	
 	//private Positions[] playerPositions = Positions.values(); TODO
 	//private ArrayList<String> playerPositions = new ArrayList<String>();
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Player List View
@@ -103,9 +106,33 @@ public class EditPlayerController implements Initializable{
 	 */
 	public void savePlayer(ActionEvent event) throws IOException
 	{		
-		//TODO
-
-
+		boolean player_empty = playerNameTextField.getText().isBlank();
+		
+		//Display alert if no team name or formation selected
+		if (player_empty == true) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Player Settings");
+			alert.setHeaderText("Missing Name");
+			alert.setContentText("Please enter Player Name.");
+			
+			if (alert.showAndWait().get() == ButtonType.OK) {
+			}
+		}
+		if (selectedPositions.size() < min_positions) {
+			String min_positions_str = String.valueOf(min_positions);  
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Player Settings");
+			alert.setHeaderText("Invalid Position Selection");
+			alert.setContentText("Please select at least " + min_positions_str + " positions.");
+			
+			if (alert.showAndWait().get() == ButtonType.OK) {
+			}
+		}
+		
+		//Edit or Create a New Team - TODO BE Connection
+		//Check if we are editing or creating a new team
+		//pass in all field and player list to object constructor
 		
 		return;
 

@@ -20,7 +20,7 @@
       <Label layoutX="23.0" layoutY="78.0" text="Team Name:" />
       <Label layoutX="23.0" layoutY="109.0" text="Shifts per Game:" />
       <Label fx:id="FormationLabel" layoutX="23.0" layoutY="150.0" text="Formation:" />
-      <TextField fx:id="TeamNameTextField" layoutX="165.0" layoutY="74.0" />
+      <TextField fx:id="teamNameTextField" layoutX="165.0" layoutY="74.0" />
       <Spinner fx:id="shiftsSpinner" layoutX="165.0" layoutY="105.0" />
       <ChoiceBox fx:id="formationChoiceBox" layoutX="165.0" layoutY="146.0" prefWidth="150.0" />
       <Label layoutX="23.0" layoutY="192.0" text="Players" />
