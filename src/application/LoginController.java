@@ -41,6 +41,7 @@ public class LoginController {
 	    * TODO - BE Connection
 	    * 
 		* @param event
+		* @throws IOException
 		* @return void
 		*/
 		public void login(ActionEvent event) throws IOException {
@@ -66,7 +67,7 @@ public class LoginController {
 				if (validUser == true) {
 					
 					//load User Menu Scene add get the correct user
-					//TODO - get a the correct user object
+					//TODO - get the correct user object - how do we "pass" the user into the UserMenuController?
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
 					root = loader.load();
 					
@@ -96,6 +97,7 @@ public class LoginController {
 	    * Brings user to CreateAccount Scene.
 	    * 
 		* @param event
+		* @throws IOException
 		* @return void
 		*/
 		public void createAccount(ActionEvent event) throws IOException {
