@@ -1,6 +1,8 @@
 package application;
 
 import java.net.URL;
+
+
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -29,34 +31,48 @@ public class LineupController implements Initializable{
 	@FXML private TableView<SoccerPlayer> LineupTable;
 	
 	
-	@FXML private TableColumn<Person, String> shiftcolumn;
+	@FXML private TableColumn<Integer> shiftcolumn;
 	
-	@FXML private TableColumn<Person, String> GKcolumn;
+	@FXML private TableColumn<Player, String> GKcolumn;
 	
-	@FXML private TableColumn<Person, String> LDcolumn;
+	@FXML private TableColumn<Player, String> LDcolumn;
 	
-	@FXML private TableColumn<Person, String> RDcolumn;
+	@FXML private TableColumn<Player, String> RDcolumn;
 	
-	@FXML private TableColumn<Person, String> LMcoolumn;
+	@FXML private TableColumn<Player, String> LMcoolumn;
 	
-	@FXML private TableColumn<Person, String> CMcolumn;
+	@FXML private TableColumn<Player, String> CMcolumn;
 	
-	@FXML private TableColumn<Person, String> RMcolumn;
+	@FXML private TableColumn<Player, String> RMcolumn;
 	
-	@FXML private TableColumn<Person, String> STcolumn;
+	@FXML private TableColumn<Player, String> STcolumn;
 	
-	@FXML private TableColumn<Person, String> Subcolumn;
+	@FXML private TableColumn<Player, String> Subcolumn;
 	
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		shiftcolumn;
+		GKcolumn.setCellValueFactory(new PropertyValueFactory<Player, String>("GK"));
+		LDcolumn.setCellValueFactory(new PropertyValueFactory<Player, String>("LD"));
+		RDcolumn.setCellValueFactory(new PropertyValueFactory<Player, String>("RD"));
+		LMcolumn.setCellValueFactory(new PropertyValueFactory<Player, String>("LM"));
+		CMcolumn.setCellValueFactory(new PropertyValueFactory<Player, String>("CM"));
+		RMcolumn.setCellValueFactory(new PropertyValueFactory<Player, String>("RM"));
+		STcolumn.setCellValueFactory(new PropertyValueFactory<Player, String>("ST"));
+		Subcolumn.setCellValueFactory(new PropertyValueFactory<Player, String>("SUB"));
+		
+		
+		
+	}
 	
 	public void logout(ActionEvent event)
 
 	{
-Pl
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 
 		alert.setTitle("Logout");
