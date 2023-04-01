@@ -1,7 +1,5 @@
 package application;
 
-
-
 import java.io.IOException;
 
 import java.net.URL;
@@ -38,36 +36,43 @@ import javafx.scene.layout.AnchorPane;
 
 import javafx.stage.Stage;
 
-
-
+/**
+* <h1>TeamMenuController</h1>
+* TeamMenuController class allows user to edit their team and
+* select available players to create lineups.
+* TODO - BE Connection
+* 
+* @author  Grace Pearcey
+* @version 1.0
+* @since   2023-03-29 
+*/
 public class TeamMenuController implements Initializable{
-
+	
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
 
 	@FXML private Button logoutButton;
 	@FXML private Button returnButton;
-
 	@FXML private Button createLineupButton;
-
 	@FXML private Button editTeamButton;
 	
 	@FXML private Label teamnamelabel;
 	
 	@FXML private AnchorPane teamMenuScenePane;
 	
-	private String[] players = {"Misha", "Glyn", "Howard"};//TODO
 	@FXML private CheckListView<String> availablePlayersCheckListView;
-	
-	int num_players_in_formation = 2; //NEED BE CONNECTION
-	
 	ArrayList<String> selectedPlayers =new ArrayList<>();
+	
+	
+	//TODO -BE Connections -> remove this temporary stuff	
+	private String[] players = {"Misha", "Glyn", "Howard"};//TODO -> Temporary
+	int num_players_in_formation = 2; //TODO -> Temporary
+	
 
-	private Stage stage;
-
-	private Scene scene;
-
-	private Parent root;
 	
 	/**
+	 * A GUI Class
 	 * Initializes the available players checklist. 
 	 * Clears then updates selectedPlayers every time a box is ticked.
 	 * @return void
@@ -85,16 +90,45 @@ public class TeamMenuController implements Initializable{
 	}
 		
 	
+	/**
+	 * Returns a string array of players that can be used in the gui for displaying a player list
+	 * TODO - BE Connection - need Player type
+	 * 
+	 * @param ArrayList<Player>
+	 * @return ArrayList<String>
+	 */
+//	public ArrayList<String> getStringPlayerList(ArrayList<Player> playerList){
+//		ArrayList<String> stringPlayerList = new ArrayList<>();
+//		for(Player p:playerList) {
+//			stringPlayerList.add(p.getName());
+//		}
+//		return stringPlayerList;
+//	}
 	
+	
+	/**
+	 * A GUI Class
+	 * Displays team name in a label
+	 * 
+	 * @param TeamName
+	 * @return void
+	 */
 	public void displayTeamName(String TeamName) {
 		teamnamelabel.setText( TeamName + " Menu");
 	}
+	
 
-
+	/**
+	 * A GUI Class
+	 * Logs out user, brings user to LoginScene
+	 * TODO - BE Connection? Delete temporary instance of user?
+	 * 
+	 * @param event
+	 * @throws IOException
+	 * @return void
+	 */
 	public void logout(ActionEvent event) throws IOException
-
-	{
-
+	{	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
 		root = loader.load();
 				
@@ -102,9 +136,17 @@ public class TeamMenuController implements Initializable{
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-
 	}
 	
+	/**
+	 * A GUI Class
+	 * Brings user to User Menu
+	 * TODO - BE Connection? Delete temporary instance of selected team?
+	 * 
+	 * @param event
+	 * @throws IOException
+	 * @return void
+	 */
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
@@ -114,14 +156,21 @@ public class TeamMenuController implements Initializable{
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-
 	}
 
 	
-
+	/**
+	 * A GUI Class
+	 * Brings user to generated lineup scene
+	 * 
+	 * @param event
+	 * @throws IOException
+	 * @return void
+	 */
 	public void switchToLineupScene(ActionEvent event)throws IOException
 
 	{	
+		//TODO BE Connection - num_players_in_formation = formation.getPlayers();
 		if (selectedPlayers.size() < num_players_in_formation) {
 			String num_players_in_formation_str = String.valueOf(num_players_in_formation);
 			
@@ -134,39 +183,38 @@ public class TeamMenuController implements Initializable{
 			}
 		}else {
 		
-			System.out.println("The dynamic array is: " + selectedPlayers);
-			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("LineupScene.fxml"));
-	
+			System.out.println("The dynamic array is: " + selectedPlayers);			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("LineupScene.fxml"));	
 			root = loader.load();
 	
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-	
-			scene = new Scene(root);
-	
-			stage.setScene(scene);
-	
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
+			scene = new Scene(root);	
+			stage.setScene(scene);	
 			stage.show();
 		}
 
 	}
 
 	
-
+	/**
+	 * A GUI Class
+	 * Brings user to edit team scene
+	 * TODO - BE Connection - need to "pass" in current team and use modifying methods instead of creating a new team. 
+	 * 
+	 * @param event
+	 * @throws IOException
+	 * @return void
+	 */
 	public void switchToEditTeamScene(ActionEvent event)throws IOException
 
 	{		
-
+		//TODO BE Connection - pass in current team 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-
 		root = loader.load();
-
+		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
 		scene = new Scene(root);
-
 		stage.setScene(scene);
-
 		stage.show();
 	}
 }

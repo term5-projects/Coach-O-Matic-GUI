@@ -31,6 +31,8 @@ import javafx.stage.Stage;
 * <h1>EditTeamController</h1>
 * EditTeamController class is used to edit or create a new team.
 * Prompts user for Team name, number of shifts per game, formation, and players on the team.  
+* TODO - BE Connection - Need to parameterize this and use it to both edit and add teams,
+*  or need to make a separate CreateTeamController
 *
 * @author  Grace Pearcey
 * @version 1.0
@@ -39,7 +41,12 @@ import javafx.stage.Stage;
 
 public class EditTeamController implements Initializable{
 
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
+	
 	@FXML Label usernameLabel;
+	@FXML private Label formationLabel;
 	
 	@FXML private Button returnButton;
 	@FXML private Button logoutButton;
@@ -49,29 +56,58 @@ public class EditTeamController implements Initializable{
 	@FXML private Button deletePlayerButton;
 	
 	@FXML private TextField teamNameTextField;
-
-	private String playerName;
 	
-	@FXML private ChoiceBox<String> formationChoiceBox;
-	private String[] formations = {"2-3-1", "2-2-2"}; //NEEDS UPDATE should use enum here
+	@FXML private ChoiceBox<String> formationChoiceBox;	
 	
-	@FXML private Label formationLabel;
 	@FXML private Spinner<Integer> shiftsSpinner;
 	
-	@FXML private ListView<String> playerListView;
-	
-	private String[] players = {"Misha", "Glyn", "Thumeera", "a", "b", "c", "d", "e","f","g"}; //NEEDS UPDATE -> Player[] = 
-	private String selectedPlayer; //NEEDS UPDATE -> Player selectedPlayer;
+	@FXML private ListView<String> playerListView;	
 	
 	@FXML private AnchorPane editTeamPane;
-	
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
+
+	private String playerName;
+	private String selectedPlayer;	
+
 	int num_shifts;
+	
+	//TODO BE Connections -> remove this when we have a BE
+	private String[] players = {"Misha", "Glyn", "Thumeera", "a", "b", "c", "d", "e","f","g"}; 
+	private String[] formations = {"2-3-1", "2-2-2"}; 
+	
+	/**
+	 * Returns a string array of the team's players that can be used in the gui for displaying a player list
+	 * TODO - BE Connection - need Player type
+	 * 
+	 * @param ArrayList<Player>
+	 * @return ArrayList<String>
+	 */
+//	public ArrayList<String> getStringPlayerList(ArrayList<Player> playerList){
+//		ArrayList<String> stringPlayerList = new ArrayList<>();
+//		for(Player p:playerList) {
+//			stringPlayerList.add(p.getName());
+//		}
+//		return stringPlayerList;
+//	}
+
+	/**
+	 * Returns a string array of all soccer formations that can a coach can select
+	 * TODO - BE Connection - need Formation type
+	 * 
+	 * @param ArrayList<Formation>
+	 * @return ArrayList<String>
+	 */
+//	public ArrayList<String> getStringFormationList(ArrayList<Formation> formationList){
+//		ArrayList<String> stringFormationList = new ArrayList<>();
+//		for(Formation f:formationList) {
+//			stringFormationList.add(f.getFormationName());
+//		}
+//		return stringPlayerList;
+//	}
+	
 	
 	
 	/**
+	 * A GUI Class
 	 * Initializes ChoiceBox, Spinner, and ListView
 	 * @return void
 	 */
@@ -100,8 +136,15 @@ public class EditTeamController implements Initializable{
 	}
 	
 
-
-	
+	/**
+	* A GUI Class
+	* Logs out user, brings user to LoginScene. Doesn't save anything. 
+	* TODO - BE Connection? Delete temporary instance of user?
+	* 
+	* @param event
+	* @throws IOException
+	* @return void
+	*/
 	public void logout(ActionEvent event)throws IOException
 	{
 		
@@ -117,6 +160,9 @@ public class EditTeamController implements Initializable{
 	}
 	
 	/**
+	 * A GUI Class
+	 * Brings user to Edit Player Page
+	 * TODO - BE Connection - "loads" the selected player
 	 * 
 	 * @param player
 	 * @return void
@@ -125,6 +171,7 @@ public class EditTeamController implements Initializable{
 	public void editPlayer(ActionEvent event) throws IOException//TODO -> Player
 	{		
 		playerName = playerListView.getSelectionModel().getSelectedItem();
+		
 		
 		//Display alert if no player selected
 		if (playerName == null) {
@@ -145,7 +192,7 @@ public class EditTeamController implements Initializable{
 			stage.setScene(scene);
 			stage.show();
 			
-			//TODO tell BE which player to edit
+			//TODO tell BE which player to edit - get player object from string name 
 			
 		}
 		return;
@@ -154,7 +201,14 @@ public class EditTeamController implements Initializable{
 
 	}
 	
-	
+	/**
+	 * A GUI Class
+	 * Permanently deletes a player from the team
+	 * TODO - BE Connection
+	 * 
+	 * @param event
+	 * @return void
+	 */
 	public void deletePlayer(ActionEvent event) {
 		playerName = playerListView.getSelectionModel().getSelectedItem();
 		
@@ -171,15 +225,24 @@ public class EditTeamController implements Initializable{
 			//Delete Player
 		
 			//TODO - BE Connection
-			//team.deletePlayer(
+			//team.removePlayer(playerName);
 			
 		}
 		return;
 	}
+	
+	/**
+	 * A GUI Class
+	 * Brings user to add Player Scene
+	 * TODO - BE Connection? maybe we don't want to create player object until we save play from edit player scene?
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void addPlayer(ActionEvent event) throws IOException {
 		
-		//TODO - BE CONNECTION
-		//Create player object
+		//TODO - BE CONNECTION?
+		//Create player object?
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPlayerScene.fxml"));
 		root = loader.load();
 				
@@ -189,6 +252,14 @@ public class EditTeamController implements Initializable{
 		stage.show();
 	}
 	
+	/**
+	 * A GUI Class
+	 * Saves team name, formation, and shifts
+	 * TODO - BE Connection
+	 * 
+	 * @param event
+	 * @return void
+	 */
 	public void saveTeam(ActionEvent event) {
 
 		boolean teamEmpty = teamNameTextField.getText().isBlank();
@@ -213,8 +284,16 @@ public class EditTeamController implements Initializable{
 		
 	}
 	
+	/**
+	 * A GUI Class 
+	 * TODO Returns to UserMenu or TeamMenu - not implemented yet!
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
+		//TODO -> need to return to User menu if new team was created, or return to Team Menu if team was edited.
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
 		root = loader.load();
 				
@@ -224,15 +303,5 @@ public class EditTeamController implements Initializable{
 		stage.show();
 
 	}
-	
-	public void switchScenes(ActionEvent event, String sceneName) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
-		root = loader.load();
-				
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-	}
-	
+		
 }
