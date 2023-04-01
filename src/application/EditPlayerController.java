@@ -33,7 +33,7 @@ import org.controlsfx.control.CheckListView;
 /**
 * <h1>EditPlayerController</h1>
 * EditPlayerController class is used to edit player name and positions.
-* TODO - need to change so class uses a checklistview so that we can dynamically change available positions
+* TODO - BE Connection
 *
 * @author  Grace Pearcey
 * @version 1.0
@@ -44,8 +44,6 @@ public class EditPlayerController implements Initializable{
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	
-	private String[] positions = {"GK", "LD", "RD"};//TEMPORARY
 
 	private ArrayList<String> selectedPositions =new ArrayList<>();
 
@@ -67,11 +65,23 @@ public class EditPlayerController implements Initializable{
 	
 	@FXML private Label playerNameLabel;
 	
-	int min_positions = 2; //NEEDS UPDATE - BE should specify minimum number of positions player must play for algorithm to work
 	
-	//private Positions[] playerPositions = Positions.values(); TODO
+	
+	//TODO BE Connections -> remove this when we have a BE
+	int min_positions = 2; //NEEDS UPDATE - BE - add as an attribute of the team? or just hard code somewhere as 7? should specify minimum number of positions player must play for algorithm to work
+	private String[] positions = {"GK", "LD", "RD"};//TEMPORARY
+	
+	//get positions list TODO - BE Connection
+	//private String[] playerPositions = formation.getPositions(); TODO
 	//private ArrayList<String> playerPositions = new ArrayList<String>();
 	
+	
+	
+	/**
+	 * A GUI Class
+	 * Initializes Positions CheckListView
+	 * @return void
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Player List View
@@ -85,7 +95,13 @@ public class EditPlayerController implements Initializable{
 		
 	}
 	
-	
+	/**
+	 * A GUI Class 
+	 * Returns to EditTeamScene, does not save anything
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
@@ -100,8 +116,10 @@ public class EditPlayerController implements Initializable{
 	
 	
 	/**
-	 * TODO
+	 * A GUI Class
 	 * Saves Player name and position updates
+	 * TODO - BE Connection
+	 * 
 	 * @return void
 	 */
 	public void savePlayer(ActionEvent event) throws IOException
@@ -130,14 +148,23 @@ public class EditPlayerController implements Initializable{
 			}
 		}
 		
-		//Edit or Create a New Team - TODO BE Connection
-		//Check if we are editing or creating a new team
+		//Edit or Create a New Player - TODO BE Connection
+		//Check if we are editing or creating player
 		//pass in all field and player list to object constructor
 		
 		return;
 
 	}
 	
+	/**
+	* A GUI Class
+	* Logs out user, brings user to LoginScene. Doesn't save anything. 
+	* TODO - BE Connection? Delete temporary instance of user, team, player?
+	* 
+	* @param event
+	* @throws IOException
+	* @return void
+	*/
 	public void logout(ActionEvent event)throws IOException
 	{
 		
