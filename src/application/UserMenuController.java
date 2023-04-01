@@ -63,6 +63,7 @@ public class UserMenuController implements Initializable{
 		stage.show();
 
 	}
+	
 	public void addTeam(ActionEvent event)throws IOException
 	{		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));

@@ -44,6 +44,7 @@ public class TeamMenuController implements Initializable{
 
 
 	@FXML private Button logoutButton;
+	@FXML private Button returnButton;
 
 	@FXML private Button createLineupButton;
 
@@ -55,6 +56,8 @@ public class TeamMenuController implements Initializable{
 	
 	private String[] players = {"Misha", "Glyn", "Howard"};//TODO
 	@FXML private CheckListView<String> availablePlayersCheckListView;
+	
+	int num_players_in_formation = 2; //NEED BE CONNECTION
 	
 	ArrayList<String> selectedPlayers =new ArrayList<>();
 
@@ -101,27 +104,50 @@ public class TeamMenuController implements Initializable{
 		stage.show();
 
 	}
+	
+	public void returnToPreviousScene(ActionEvent event) throws IOException
+	{		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
+		root = loader.load();
+				
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+
+	}
 
 	
 
 	public void switchToLineupScene(ActionEvent event)throws IOException
 
 	{	
-
+		if (selectedPlayers.size() < num_players_in_formation) {
+			String num_players_in_formation_str = String.valueOf(num_players_in_formation);
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Lineup Generation");
+			alert.setHeaderText("Invalid Player Selection");
+			alert.setContentText("Please select at least " +  num_players_in_formation_str + " players for the team formation.");
+			
+			if (alert.showAndWait().get() == ButtonType.OK) {
+			}
+		}else {
 		
-		System.out.println("The dynamic array is: " + selectedPlayers);
-		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("LineupScene.fxml"));
-
-		root = loader.load();
-
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-		scene = new Scene(root);
-
-		stage.setScene(scene);
-
-		stage.show();
+			System.out.println("The dynamic array is: " + selectedPlayers);
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("LineupScene.fxml"));
+	
+			root = loader.load();
+	
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+	
+			scene = new Scene(root);
+	
+			stage.setScene(scene);
+	
+			stage.show();
+		}
 
 	}
 
