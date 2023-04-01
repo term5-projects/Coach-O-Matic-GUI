@@ -72,6 +72,7 @@ public class TeamMenuController implements Initializable{
 
 	
 	/**
+	 * A GUI Class
 	 * Initializes the available players checklist. 
 	 * Clears then updates selectedPlayers every time a box is ticked.
 	 * @return void
@@ -94,7 +95,7 @@ public class TeamMenuController implements Initializable{
 	 * TODO - BE Connection - need Player type
 	 * 
 	 * @param ArrayList<Player>
-	 * @return void
+	 * @return ArrayList<String>
 	 */
 //	public ArrayList<String> getStringPlayerList(ArrayList<Player> playerList){
 //		ArrayList<String> stringPlayerList = new ArrayList<>();
@@ -106,6 +107,7 @@ public class TeamMenuController implements Initializable{
 	
 	
 	/**
+	 * A GUI Class
 	 * Displays team name in a label
 	 * 
 	 * @param TeamName
@@ -117,6 +119,7 @@ public class TeamMenuController implements Initializable{
 	
 
 	/**
+	 * A GUI Class
 	 * Logs out user, brings user to LoginScene
 	 * TODO - BE Connection? Delete temporary instance of user?
 	 * 
@@ -136,6 +139,7 @@ public class TeamMenuController implements Initializable{
 	}
 	
 	/**
+	 * A GUI Class
 	 * Brings user to User Menu
 	 * TODO - BE Connection? Delete temporary instance of selected team?
 	 * 
@@ -156,6 +160,7 @@ public class TeamMenuController implements Initializable{
 
 	
 	/**
+	 * A GUI Class
 	 * Brings user to generated lineup scene
 	 * 
 	 * @param event
@@ -192,6 +197,7 @@ public class TeamMenuController implements Initializable{
 
 	
 	/**
+	 * A GUI Class
 	 * Brings user to edit team scene
 	 * TODO - BE Connection - need to "pass" in current team and use modifying methods instead of creating a new team. 
 	 * 

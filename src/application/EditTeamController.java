@@ -215,6 +215,7 @@ public class EditTeamController implements Initializable{
 	
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
+		//TODO -> need to return to User menu if new team was created, or return to Team Menu if team was edited.
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
 		root = loader.load();
 				
