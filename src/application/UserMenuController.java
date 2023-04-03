@@ -122,12 +122,12 @@ public class UserMenuController implements Initializable{
 	 */
 	public void addTeam(ActionEvent event)throws IOException
 	{		
-		//TODO - Create new team object and "pass" in that team
-		SoccerTeam empty_team = new SoccerTeam();
-		Main.user.addTeam(empty_team);
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
 		root = loader.load();
+		
+		EditTeamController controller = loader.getController();
+		controller.setTeamToEdit("new_team");
 			
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -167,6 +167,7 @@ public class UserMenuController implements Initializable{
 				
 				TeamMenuController teamMenuController = loader.getController();
 				teamMenuController.displayTeamName(teamname);
+				teamMenuController.setSelectedTeam(teamname);
 				
 				stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 				scene = new Scene(root);

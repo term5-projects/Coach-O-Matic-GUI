@@ -70,6 +70,8 @@ public class EditTeamController implements Initializable{
 
 	private String playerName;
 	private String selectedPlayer;	
+	
+	private SoccerTeam team;
 
 	int num_shifts;
 	
@@ -108,21 +110,7 @@ public class EditTeamController implements Initializable{
 //	}
 	
 	
-	/**
-	 * 
-	 */
-	public boolean addOrEditTeam() {
-		//check if adding new team or editing exsisting team
-		if (Main.user.getTeam("").equals(null){
-			//editing exsisting team
-		} else if (UserMenuController.teamname.equals("test")) {
-			//editing an existing team			
-		}
-		else if (TeamMenuController.temporary_team == null) {
-			//creating a new team
-			
-		}
-	}
+
 	/**
 	 * A GUI Class
 	 * Initializes ChoiceBox, Spinner, and ListView
@@ -142,7 +130,7 @@ public class EditTeamController implements Initializable{
 		
 		//Player List View
 		
-		stringPlayersList = getStringPlayerList(Main.user.get);
+		//stringPlayersList = getStringPlayerList(Main.user.get);
 		playerListView.getItems().addAll(players);
 		playerListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {//TODO -> <Player>
 
@@ -155,7 +143,27 @@ public class EditTeamController implements Initializable{
 		
 	}
 	
+	/**
+	 * Sets the team that the user wants to edit
+	 * @param String teamname
+	 */
+	public void setTeamToEdit(String team_name) {
+		if (team_name == "new_team"){
+			//create a new team
+			team = new SoccerTeam(); 
+		}
+		else {
+			//editing an existing team
+			team = Main.user.getTeam(team_name);
+			if (team.equals(null)) {
+				//Error
+				System.out.println("Error: Cannot find team");
+			}
+		}
 
+	}
+	
+	
 	/**
 	* A GUI Class
 	* Logs out user, brings user to LoginScene. Doesn't save anything. 

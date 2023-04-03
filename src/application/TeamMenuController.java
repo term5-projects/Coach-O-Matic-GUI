@@ -64,6 +64,7 @@ public class TeamMenuController implements Initializable{
 	@FXML private CheckListView<String> availablePlayersCheckListView;
 	ArrayList<String> selectedPlayers =new ArrayList<>();
 	
+	private String current_team;
 	
 	//TODO -BE Connections -> remove this temporary stuff	
 	private String[] players = {"Misha", "Glyn", "Howard"};//TODO -> Temporary
@@ -117,6 +118,13 @@ public class TeamMenuController implements Initializable{
 		teamnamelabel.setText( TeamName + " Menu");
 	}
 	
+	/**
+	 * Sets the team selected from the User Menu
+	 * @param team_name
+	 */
+	public void setSelectedTeam(String team_name) {
+		current_team = team_name;
+	}
 
 	/**
 	 * A GUI Class
@@ -212,6 +220,9 @@ public class TeamMenuController implements Initializable{
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
 		root = loader.load();
+		
+		EditTeamController controller = loader.getController();
+		controller.setTeamToEdit(current_team);
 		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
