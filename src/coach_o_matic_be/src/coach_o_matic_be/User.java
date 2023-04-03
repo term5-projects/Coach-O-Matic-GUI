@@ -29,7 +29,7 @@ public class User {
     this.username = username;
     this.password = password;
     teams = new ArrayList<SoccerTeam>();
-    System.out.println("New user create with username: " + username + " and password: " + password);
+    System.out.println("New user created with username: " + username + " and password: " + password);
   }
 
   /**

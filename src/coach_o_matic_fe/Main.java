@@ -1,5 +1,6 @@
 package coach_o_matic_fe;
 	
+import coach_o_matic_be.src.coach_o_matic_be.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -20,6 +21,8 @@ import javafx.scene.layout.BorderPane;
 * @since   2023-03-29 
 */
 public class Main extends Application {
+	public static User user;
+	
 	@Override
 	public void start(Stage stage) {
 		try {

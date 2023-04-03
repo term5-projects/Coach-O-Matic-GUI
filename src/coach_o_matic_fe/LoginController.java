@@ -52,8 +52,8 @@ public class LoginController {
 			String username = usernameTextField.getText();
 			String password = passwordField.getText();
 			
-			//Check if user credentials missing
-			if (username.isBlank() == true || password.isBlank() == true) {
+			//Check if user credentials missing or no user created
+			if (username.isBlank() == true || password.isBlank() == true || Main.user == null) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Login");
 				alert.setHeaderText("Invalid User Credentials");
@@ -64,12 +64,8 @@ public class LoginController {
 			}
 			else {
 				//BE Connection - TODO
-				//bool validUser = findUser(username, password)
-				boolean validUser = true; //TEMPORARY 
-				if (validUser == true) {
+				if (Main.user.getUsername().equals(username) && Main.user.getPassword().equals(password)) {
 					
-					//load User Menu Scene add get the correct user
-					//TODO - get the correct user object - how do we "pass" the user into the UserMenuController?
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
 					root = loader.load();
 					

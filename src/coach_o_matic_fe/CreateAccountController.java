@@ -22,7 +22,6 @@ import coach_o_matic_be.src.coach_o_matic_be.*;
  * <h1>CreateAccountController</h1>
  * Creates new user accounts.
  * User must input a username and password to create the account.
- * TODO - BE Connection
  *
  * @author Grace Pearcey
  * @version 1.0
@@ -44,7 +43,6 @@ public class CreateAccountController {
 	private Scene scene;
 	private Parent root;
 	
-	public User user;
 	
 	/**
 	 * Creates a user and returns to login page if user enters something for both username and password fields.
@@ -72,7 +70,7 @@ public class CreateAccountController {
 			//BE Connection - Creates a  User object with username and password
 		    username = usernameTextField.getText();
 		    password = passwordField.getText();
-		    user = new User(username, password);
+		    Main.user = new User(username, password);
 		    
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
