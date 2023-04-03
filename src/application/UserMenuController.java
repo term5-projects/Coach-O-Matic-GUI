@@ -1,4 +1,4 @@
-package coach_o_matic_fe;
+package application;
 
 import java.io.IOException;
 
