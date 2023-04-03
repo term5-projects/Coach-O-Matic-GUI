@@ -1,8 +1,8 @@
-package coach_o_matic_fe;
+package application;
 
 import java.io.IOException;
 import java.net.URL;
-
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import coach_o_matic_be.src.coach_o_matic_be.*;
 
 /**
 * <h1>EditTeamController</h1>
@@ -64,6 +65,8 @@ public class EditTeamController implements Initializable{
 	@FXML private ListView<String> playerListView;	
 	
 	@FXML private AnchorPane editTeamPane;
+	
+	private ArrayList<String> stringPlayersList = new ArrayList<>();
 
 	private String playerName;
 	private String selectedPlayer;	
@@ -81,13 +84,13 @@ public class EditTeamController implements Initializable{
 	 * @param ArrayList<Player>
 	 * @return ArrayList<String>
 	 */
-//	public ArrayList<String> getStringPlayerList(ArrayList<Player> playerList){
-//		ArrayList<String> stringPlayerList = new ArrayList<>();
-//		for(Player p:playerList) {
-//			stringPlayerList.add(p.getName());
-//		}
-//		return stringPlayerList;
-//	}
+	public ArrayList<String> getStringPlayerList(ArrayList<SoccerPlayer> playerList){
+		ArrayList<String> stringPlayerList = new ArrayList<>();
+		for(Player p:playerList) {
+			stringPlayerList.add(p.getName());
+		}
+		return stringPlayerList;
+	}
 
 	/**
 	 * Returns a string array of all soccer formations that can a coach can select
@@ -105,7 +108,21 @@ public class EditTeamController implements Initializable{
 //	}
 	
 	
-	
+	/**
+	 * 
+	 */
+	public boolean addOrEditTeam() {
+		//check if adding new team or editing exsisting team
+		if (Main.user.getTeam("").equals(null){
+			//editing exsisting team
+		} else if (UserMenuController.teamname.equals("test")) {
+			//editing an existing team			
+		}
+		else if (TeamMenuController.temporary_team == null) {
+			//creating a new team
+			
+		}
+	}
 	/**
 	 * A GUI Class
 	 * Initializes ChoiceBox, Spinner, and ListView
@@ -113,6 +130,7 @@ public class EditTeamController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
 		//formation ChoiceBox
 		formationChoiceBox.getItems().addAll(formations);
 		
@@ -123,6 +141,8 @@ public class EditTeamController implements Initializable{
 		num_shifts = shiftsSpinner.getValue();
 		
 		//Player List View
+		
+		stringPlayersList = getStringPlayerList(Main.user.get);
 		playerListView.getItems().addAll(players);
 		playerListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {//TODO -> <Player>
 

@@ -1,5 +1,6 @@
-package coach_o_matic_fe;
+package application;
 	
+import coach_o_matic_be.src.coach_o_matic_be.SoccerTeam;
 import coach_o_matic_be.src.coach_o_matic_be.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

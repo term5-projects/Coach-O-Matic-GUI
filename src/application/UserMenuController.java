@@ -1,4 +1,4 @@
-package coach_o_matic_fe;
+package application;
 
 import java.io.IOException;
 
@@ -49,6 +49,8 @@ public class UserMenuController implements Initializable{
 	@FXML private AnchorPane userMenuScenePane;
 	
 	ArrayList<String> teamsListString;
+	
+	public String teamname;
 	
 	/**
 	 * Returns a string array of teams that can be used in the gui for displaying a team list
@@ -121,9 +123,11 @@ public class UserMenuController implements Initializable{
 	public void addTeam(ActionEvent event)throws IOException
 	{		
 		//TODO - Create new team object and "pass" in that team
+		SoccerTeam empty_team = new SoccerTeam();
+		Main.user.addTeam(empty_team);
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
 		root = loader.load();
-		
 			
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -143,7 +147,7 @@ public class UserMenuController implements Initializable{
 	 * @return void
 	 */
 	public void visitTeamMenu(ActionEvent event) throws IOException {
-			String teamname = selectTeamChoiceBox.getValue();
+			teamname = selectTeamChoiceBox.getValue();
 			boolean teamname_empty = teamname.isBlank();
 			if (teamname_empty) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);

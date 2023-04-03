@@ -19,6 +19,8 @@ import java.util.ArrayList;
  */
 
 public interface Team<PlayerType> {
+	
+
   /**
    * Sets the name of the team.
    * 

@@ -1,4 +1,4 @@
-package coach_o_matic_fe;
+package application;
 
 import java.io.IOException;
 
@@ -209,6 +209,7 @@ public class TeamMenuController implements Initializable{
 
 	{		
 		//TODO BE Connection - pass in current team 
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
 		root = loader.load();
 		

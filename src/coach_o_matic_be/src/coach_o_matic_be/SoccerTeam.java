@@ -52,6 +52,19 @@ public class SoccerTeam implements Team<SoccerPlayer> {
     this.id = UUID.randomUUID();
 
   }
+  /**
+   * Sets Properties for temporary SoccerTeam object with no name set yet
+   */
+  public SoccerTeam() {
+	    ArrayList<SoccerPlayer> emptyPlayerList = new ArrayList<SoccerPlayer>();
+	    setFormation(SoccerFormations.TWO_THREE_ONE);
+	    setGameShifts(6);
+
+	    setName("");
+	    setPlayers(emptyPlayerList);
+
+	    this.id = UUID.randomUUID();
+  }
     /**
    * Sets Properties for SoccerTeam object
    * <br>
