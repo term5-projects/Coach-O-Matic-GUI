@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import coach_o_matic_be.src.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
 /**
 * <h1>LoginController</h1>
 * LoginController class prompts user for username and password and upon login, brings them to the user menu.
@@ -35,6 +35,7 @@ public class LoginController {
 		private Stage stage;
 		private Scene scene;
 		private Parent root;
+		private Player michael;
 
 		/**
 	    * Brings user to UserMenuScene
