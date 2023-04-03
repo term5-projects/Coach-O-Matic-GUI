@@ -1,4 +1,4 @@
-package coach_o_matic_be;
+package coach_o_matic_be.src.coach_o_matic_be;
 /**
 * <h1>Soccer Formations</h1>
 * Provides enum of soccer formations.

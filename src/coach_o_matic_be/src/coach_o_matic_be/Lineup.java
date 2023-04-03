@@ -1,4 +1,4 @@
-package coach_o_matic_be;
+package coach_o_matic_be.src.coach_o_matic_be;
 /**
  * <h1>Lineup</h1>
  * Lineup class contains the title of a Lineup and the Lineup in a 2D array.

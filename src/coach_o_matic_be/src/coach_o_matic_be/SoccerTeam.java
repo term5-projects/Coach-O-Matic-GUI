@@ -1,4 +1,4 @@
-package coach_o_matic_be;
+package coach_o_matic_be.src.coach_o_matic_be;
 
 import java.util.UUID;
 import java.util.ArrayList;
