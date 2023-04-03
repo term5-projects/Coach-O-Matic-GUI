@@ -82,6 +82,14 @@ public class User {
 
   }
 
+  /**
+   * Returns a list of the user's teams
+   * @return ArrayList<SoccerTeam>
+   */
+  public ArrayList<SoccerTeam> getTeams() {
+	  return teams;
+  }
+  
   public void addTeam(SoccerTeam teamToAdd) {
     teams.add(teamToAdd);
   }

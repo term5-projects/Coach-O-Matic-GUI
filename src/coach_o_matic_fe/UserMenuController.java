@@ -3,6 +3,7 @@ package coach_o_matic_fe;
 import java.io.IOException;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import coach_o_matic_be.src.coach_o_matic_be.*;
 
 /**
 * <h1>UserMenuController</h1>
@@ -46,24 +48,21 @@ public class UserMenuController implements Initializable{
 	
 	@FXML private AnchorPane userMenuScenePane;
 	
-	//TODO BE Connection - remove this once we have BE
-	private String[] stringTeamList = {"FAA Gu11", "SYJS Bu11"}; //Temporary
-	
+	ArrayList<String> teamsListString;
 	
 	/**
 	 * Returns a string array of teams that can be used in the gui for displaying a team list
-	 * TODO - BE Connection - need Team type
 	 * 
 	 * @param ArrayList<Team>
 	 * @return ArrayList<String>
 	 */
-//	public ArrayList<String> getStringTeamList(ArrayList<Team> teamList){
-//		ArrayList<String> stringTeamList = new ArrayList<>();
-//		for(Team t:teamList) {
-//			stringTeamList.add(t.getName());
-//		}
-//		return stringTeamList;
-//	}
+	public ArrayList<String> getStringTeamList(ArrayList<SoccerTeam> teamList){
+		ArrayList<String> stringTeamList = new ArrayList<>();
+		for(SoccerTeam t:teamList) {
+			stringTeamList.add(t.getName());
+		}
+		return stringTeamList;
+	}
 
 	/**
 	 * A GUI Class 
@@ -73,7 +72,8 @@ public class UserMenuController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		selectTeamChoiceBox.getItems().addAll(stringTeamList);		
+		teamsListString = getStringTeamList(Main.user.getTeams());
+		selectTeamChoiceBox.getItems().addAll(teamsListString);		
 	}
 	
 	
@@ -92,7 +92,6 @@ public class UserMenuController implements Initializable{
 	/**
 	 * A GUI Class
 	 * Logs out user, brings user to LoginScene
-	 * TODO - BE Connection? Delete temporary instance of user?
 	 * 
 	 * @param event
 	 * @throws IOException
