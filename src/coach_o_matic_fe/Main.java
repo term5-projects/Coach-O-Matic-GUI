@@ -1,4 +1,4 @@
-package application;
+package coach_o_matic_fe;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

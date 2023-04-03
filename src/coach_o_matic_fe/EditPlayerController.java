@@ -1,4 +1,4 @@
-package application;
+package coach_o_matic_fe;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

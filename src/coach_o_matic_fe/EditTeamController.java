@@ -1,4 +1,4 @@
-package application;
+package coach_o_matic_fe;
 
 import java.io.IOException;
 import java.net.URL;

@@ -6,5 +6,5 @@ module CoachOMatic_gui {
 	requires javafx.base;
 	requires org.controlsfx.controls;
 	
-	opens application to javafx.graphics, javafx.fxml;
+	opens coach_o_matic_fe to javafx.graphics, javafx.fxml;
 }
