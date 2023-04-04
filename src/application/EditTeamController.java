@@ -34,7 +34,7 @@ import coach_o_matic_be.src.coach_o_matic_be.*;
 * <h1>EditTeamController</h1>
 * EditTeamController class is used to edit or create a new team.
 * Prompts user for Team name, number of shifts per game, formation, and players on the team.  
-* TODO - fix formations, and need to update PlayerListView when a player is deleted.
+* TODO - fix formations
 *
 * @author  Grace Pearcey
 * @version 1.0
@@ -67,7 +67,7 @@ public class EditTeamController implements Initializable{
 	@FXML private ListView<String> playerListView;	
 	
 	@FXML private AnchorPane editTeamPane;
-	
+
 	private ArrayList<String> stringPlayersList = new ArrayList<>();
 
 	private String playerName;
@@ -224,7 +224,6 @@ public class EditTeamController implements Initializable{
 	/**
 	 * A GUI Class
 	 * Permanently deletes a player from the team
-	 * TODO - Player List does not get updated when a player is removed from the team. 
 	 * 
 	 * @param event
 	 * @return void
@@ -244,8 +243,9 @@ public class EditTeamController implements Initializable{
 		}else{
 			//Delete Player		
 			boolean player_deleted = team.removePlayer(playerName);
-			stringPlayersList = getStringPlayerList(team.getPlayers()); //TODO - this updated list is not the list that is shown!
-			
+			stringPlayersList = getStringPlayerList(team.getPlayers()); //get updated player list
+			playerListView.getItems().clear(); // clear the ListView
+		    playerListView.getItems().addAll(stringPlayersList); // add updated stringPlayersList to the ListView
 			System.out.println("players after " + playerName +  " removed: " + stringPlayersList);
 			
 			if (player_deleted == false) {
