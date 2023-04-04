@@ -104,7 +104,10 @@ public class EditPlayerController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		//Player List View
+		//Populate player name text field
+		playerNameTextField.setText(player.getName());
+		
+		//Positions List View
 		positionsCheckListView.getItems().addAll(string_positions);
 		positionsCheckListView.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super String>) new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {

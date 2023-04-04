@@ -131,6 +131,9 @@ public class EditTeamController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		System.out.print("EditTeamController initialize() called");
 		
+		//Fill Text Field
+		teamNameTextField.setText(team.getName());
+		
 		//formation ChoiceBox
 		formationChoiceBox.getItems().addAll(formations); //TODO fix formations
 
