@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import coach_o_matic_be.src.coach_o_matic_be.SoccerTeam;
+import coach_o_matic_be.src.coach_o_matic_be.Team;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +20,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+/**
+* <h1>LineupController</h1>
+* LineupController class is used to display generated lineups to the user.
+* TODO - BE Connection.
+*
+* @author  Grace Pearcey, David Davilla
+* @version 1.0
+* @since   2023-03-29 
+*/
 public class LineupController {
 	
 	@FXML Label formationLabel;
@@ -32,7 +42,26 @@ public class LineupController {
 	private Scene scene;
 	private Parent root;
 	
+	private SoccerTeam team;
 	
+	/**
+	 * LineupController constructor
+	 * TODO - may need to update for BE connection
+	 * 
+	 * @param team_name
+	 */
+	public LineupController(String team_name) {
+		team = Main.user.getTeam(team_name);
+	}
+	
+	/**
+	* A GUI Class
+	* Logs out user, brings user to LoginScene. Doesn't update or save anything. 
+	* 
+	* @param event
+	* @throws IOException
+	* @return void
+	*/
 	public void logout(ActionEvent event) throws IOException
 
 	{
@@ -47,9 +76,17 @@ public class LineupController {
 
 	}
 	
+	/**
+	 * A GUI Class 
+	 * Returns to TeamMenuScene
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
+		loader.setControllerFactory(controllerClass -> new TeamMenuController(team.getName()));
 		root = loader.load();
 				
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();

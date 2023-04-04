@@ -2,11 +2,13 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
-
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,11 +28,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import coach_o_matic_be.src.coach_o_matic_be.*;
 
 /**
 * <h1>EditTeamController</h1>
 * EditTeamController class is used to edit or create a new team.
 * Prompts user for Team name, number of shifts per game, formation, and players on the team.  
+* TODO - fix formations
 *
 * @author  Grace Pearcey
 * @version 1.0
@@ -39,7 +43,12 @@ import javafx.stage.Stage;
 
 public class EditTeamController implements Initializable{
 
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
+	
 	@FXML Label usernameLabel;
+	@FXML private Label formationLabel;
 	
 	@FXML private Button returnButton;
 	@FXML private Button logoutButton;
@@ -49,45 +58,92 @@ public class EditTeamController implements Initializable{
 	@FXML private Button deletePlayerButton;
 	
 	@FXML private TextField teamNameTextField;
+	
+	@FXML private ChoiceBox<String> formationChoiceBox;	
+	@FXML private ChoiceBox<String> test;	
+	
+	@FXML private Spinner<Integer> shiftsSpinner;
+	
+	@FXML private ListView<String> playerListView;	
+	
+	@FXML private AnchorPane editTeamPane;
+
+	private ArrayList<String> stringPlayersList = new ArrayList<>();
 
 	private String playerName;
 	
-	@FXML private ChoiceBox<String> formationChoiceBox;
-	private String[] formations = {"2-3-1", "2-2-2"}; //NEEDS UPDATE should use enum here
+	public SoccerTeam team;
 	
-	@FXML private Label formationLabel;
-	@FXML private Spinner<Integer> shiftsSpinner;
-	
-	@FXML private ListView<String> playerListView;
-	
-	private String[] players = {"Misha", "Glyn", "Thumeera", "a", "b", "c", "d", "e","f","g"}; //NEEDS UPDATE -> Player[] = 
-	private String selectedPlayer; //NEEDS UPDATE -> Player selectedPlayer;
-	
-	@FXML private AnchorPane editTeamPane;
-	
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
-	int num_shifts;
-	
+	private String[] formations = {"2-3-1"}; //TODO - fix formations
+	private String selectedPlayer;
+
+
+	public EditTeamController() {
+		team = new SoccerTeam("new_team"); 
+		Main.user.addTeam(team);
+		System.out.println("EditTeamController() called");		
+		
+	}
+	public EditTeamController(String team_name) {
+		team = Main.user.getTeam(team_name);
+		System.out.println("EditTeamController(String team_name) called");
+	}
 	
 	/**
+	 * Returns a string array of the team's players that can be used in the gui for displaying a player list
+	 * 
+	 * @param ArrayList<Player>
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getStringPlayerList(ArrayList<SoccerPlayer> playerList){
+		ArrayList<String> stringPlayerList = new ArrayList<>();
+		for(Player p:playerList) {
+			stringPlayerList.add(p.getName());
+		}
+		return stringPlayerList;
+	}
+
+	/**
+	 * Returns a string array of all soccer formations that can a coach can select
+	 * TODO - fix formations
+	 * 
+	 * @param ArrayList<Formation>
+	 * @return ArrayList<String>
+	 */
+//	public ArrayList<String> getStringFormationList(ArrayList<Formation> formationList){
+//		ArrayList<String> stringFormationList = new ArrayList<>();
+//		for(Formation f:formationList) {
+//			stringFormationList.add(f.getFormationName());
+//		}
+//		return stringPlayerList;
+//	}
+	
+	
+
+	/**
+	 * A GUI Class
 	 * Initializes ChoiceBox, Spinner, and ListView
+	 * TODO fix formations
+	 * 
 	 * @return void
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		System.out.print("EditTeamController initialize() called");
+		
 		//formation ChoiceBox
-		formationChoiceBox.getItems().addAll(formations);
+		formationChoiceBox.getItems().addAll(formations); //TODO fix formations
+
 		
 		//shifts Spinner 
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);		
-		valueFactory.setValue(1);		
+		valueFactory.setValue(team.getGameShifts());	
+	
 		shiftsSpinner.setValueFactory(valueFactory);		
-		num_shifts = shiftsSpinner.getValue();
 		
-		//Player List View
-		playerListView.getItems().addAll(players);
+		//Player List View		
+		stringPlayersList = getStringPlayerList(team.getPlayers());
+		playerListView.getItems().addAll(stringPlayersList);
 		playerListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {//TODO -> <Player>
 
 			@Override
@@ -99,11 +155,19 @@ public class EditTeamController implements Initializable{
 		
 	}
 	
-
-
-	
+	/**
+	* A GUI Class
+	* Logs out user, brings user to LoginScene. Doesn't save anything. Deletes the temporary "new_team" if exists 
+	* 
+	* @param event
+	* @throws IOException
+	* @return void
+	*/
 	public void logout(ActionEvent event)throws IOException
 	{
+		if (team.getName().equals("new_team")) {
+			Main.user.removeTeam("new_team");
+		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
 		root = loader.load();
@@ -117,14 +181,17 @@ public class EditTeamController implements Initializable{
 	}
 	
 	/**
+	 * A GUI Class
+	 * Brings user to Edit Player Page
 	 * 
 	 * @param player
 	 * @return void
 	 * @throws IOException 
 	 */
-	public void editPlayer(ActionEvent event) throws IOException//TODO -> Player
+	public void editPlayer(ActionEvent event) throws IOException
 	{		
 		playerName = playerListView.getSelectionModel().getSelectedItem();
+		
 		
 		//Display alert if no player selected
 		if (playerName == null) {
@@ -137,16 +204,16 @@ public class EditTeamController implements Initializable{
 			}
 		}else{
 			
+			//load EditPlayerScene
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPlayerScene.fxml"));
+			loader.setControllerFactory(controllerClass -> new EditPlayerController(team.getName(), playerName));
 			root = loader.load();
 					
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
-			
-			//TODO tell BE which player to edit
-			
+						
 		}
 		return;
 		
@@ -154,7 +221,13 @@ public class EditTeamController implements Initializable{
 
 	}
 	
-	
+	/**
+	 * A GUI Class
+	 * Permanently deletes a player from the team
+	 * 
+	 * @param event
+	 * @return void
+	 */
 	public void deletePlayer(ActionEvent event) {
 		playerName = playerListView.getSelectionModel().getSelectedItem();
 		
@@ -168,19 +241,32 @@ public class EditTeamController implements Initializable{
 			if (alert.showAndWait().get() == ButtonType.OK) {
 			}
 		}else{
-			//Delete Player
-		
-			//TODO - BE Connection
-			//team.deletePlayer(
+			//Delete Player		
+			boolean player_deleted = team.removePlayer(playerName);
+			stringPlayersList = getStringPlayerList(team.getPlayers()); //get updated player list
+			playerListView.getItems().clear(); // clear the ListView
+		    playerListView.getItems().addAll(stringPlayersList); // add updated stringPlayersList to the ListView
+			System.out.println("players after " + playerName +  " removed: " + stringPlayersList);
+			
+			if (player_deleted == false) {
+				System.out.println("Error: " + playerName + " could not be deleted.");
+			}
 			
 		}
 		return;
 	}
+	
+	/**
+	 * A GUI Class
+	 * Brings user to add Player Scene
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void addPlayer(ActionEvent event) throws IOException {
-		
-		//TODO - BE CONNECTION
-		//Create player object
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPlayerScene.fxml"));
+		loader.setControllerFactory(controllerClass -> new EditPlayerController(team.getName())); 
 		root = loader.load();
 				
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -189,14 +275,22 @@ public class EditTeamController implements Initializable{
 		stage.show();
 	}
 	
-	public void saveTeam(ActionEvent event) {
+	/**
+	 * A GUI Class
+	 * Saves team name, formation, and shifts, and exits to the TeamMenu of team edited or created
+	 * TODO - add a check for formation
+	 * 
+	 * @param event
+	 * @return void
+	 * @throws IOException 
+	 */
+	public void saveTeam(ActionEvent event) throws IOException {
 
 		boolean teamEmpty = teamNameTextField.getText().isBlank();
-		num_shifts = shiftsSpinner.getValue();
 		String formation = formationChoiceBox.getValue();
 		
 		//Display alert if no team name or formation selected
-		if (teamEmpty == true || formation == null) {
+		if (teamEmpty == true) {//TODO add check for formation
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Team Settings");
 			alert.setHeaderText("Missing Team Information");
@@ -204,35 +298,60 @@ public class EditTeamController implements Initializable{
 			
 			if (alert.showAndWait().get() == ButtonType.OK) {
 			}
+		} else {
+			
+			//Update the team
+			Main.user.updateTeam(team, teamNameTextField.getText(), team.getFormation(), shiftsSpinner.getValue());
+			
+			//Exit the edit team scene to the TeamMenuScene
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));		
+			loader.setControllerFactory(controllerClass -> new TeamMenuController(team.getName()));
+			root = loader.load();
+			
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			}			
 		}
-		
-		//Edit or Create a New Team - TODO BE Connection
-		//Check if we are editing or creating a new team
-		//pass in all field and player list to object constructor
+
 		
 		
-	}
 	
+	
+	/**
+	 * A GUI Class 
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
+		//Delete new_team if not updated and saved, exit to UserMenu as no team was created
+		if (team.getName().equals("new_team")) {
+			Main.user.removeTeam("new_team");
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
+			root = loader.load();
+					
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			
+		}
+		else {
+			
+		//Return to User menu if new team was created, or return to Team Menu if existing team was edited.
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
+		loader.setControllerFactory(controllerClass -> new TeamMenuController(team.getName()));
 		root = loader.load();
 				
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		}
 
 	}
-	
-	public void switchScenes(ActionEvent event, String sceneName) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
-		root = loader.load();
-				
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-	}
-	
+		
 }

@@ -30,22 +30,31 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.CheckListView;
 
+import coach_o_matic_be.src.coach_o_matic_be.SoccerPlayer;
+import coach_o_matic_be.src.coach_o_matic_be.SoccerPositions;
+import coach_o_matic_be.src.coach_o_matic_be.SoccerTeam;
+
 /**
 * <h1>EditPlayerController</h1>
 * EditPlayerController class is used to edit player name and positions.
-* TODO - need to change so class uses a checklistview so that we can dynamically change available positions
+* TODO - fix positions - right now it's just a hardcoded string for displaying and gui has no effect on actual player posistions
 *
 * @author  Grace Pearcey
 * @version 1.0
 * @since   2023-03-29 
 */
 public class EditPlayerController implements Initializable{
-	
+	private static final SoccerPositions GK = null;
+	private static final SoccerPositions LD = null;
+	private static final SoccerPositions RD = null;
+	private static final SoccerPositions LM = null;
+	private static final SoccerPositions CM = null;
+	private static final SoccerPositions RM = null;
+	private static final SoccerPositions ST = null;
+
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	
-	private String[] positions = {"GK", "LD", "RD"};//TEMPORARY
 
 	private ArrayList<String> selectedPositions =new ArrayList<>();
 
@@ -67,15 +76,36 @@ public class EditPlayerController implements Initializable{
 	
 	@FXML private Label playerNameLabel;
 	
-	int min_positions = 2; //NEEDS UPDATE - BE should specify minimum number of positions player must play for algorithm to work
+	private SoccerTeam team;
+	private SoccerPlayer player;
+
 	
-	//private Positions[] playerPositions = Positions.values(); TODO
-	//private ArrayList<String> playerPositions = new ArrayList<String>();
+	//Set to all positions
+	private SoccerPositions[] positions = {GK, LD, RD, LM, CM, RM, ST};
+	private String[] string_positions = {"GK","LD","RD","LM","CM","RM","ST"};
 	
+	int min_positions = 7; //TODO - SHOULD COME FROM BE NOT FE! maybe add as an attribute of lineup generator? 
+	
+	public EditPlayerController(String team_name) {
+		this.team = Main.user.getTeam(team_name);
+		player = new SoccerPlayer();
+		this.team.addPlayer(player);
+	}
+	
+	public EditPlayerController(String team_name, String player_name) {
+		this.team = Main.user.getTeam(team_name);
+		player = team.getPlayer(player_name);
+	}
+	
+	/**
+	 * A GUI Class
+	 * Initializes Positions CheckListView
+	 * @return void
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Player List View
-		positionsCheckListView.getItems().addAll(positions);
+		positionsCheckListView.getItems().addAll(string_positions);
 		positionsCheckListView.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super String>) new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	 selectedPositions.clear();
@@ -85,11 +115,22 @@ public class EditPlayerController implements Initializable{
 		
 	}
 	
-	
+	/**
+	 * A GUI Class 
+	 * Returns to EditTeamScene, does not save anything
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
+		//delete unsaved player if creating a player
+		if (player.getName().equals(" ")) {
+			team.removePlayer(" ");
+		}
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-		root = loader.load();
+		loader.setControllerFactory(controllerClass -> new EditTeamController(team.getName()));
+		root = loader.load();		
 				
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -100,8 +141,10 @@ public class EditPlayerController implements Initializable{
 	
 	
 	/**
-	 * TODO
+	 * A GUI Class
 	 * Saves Player name and position updates
+	 * TODO - actually set positions from CheckListView
+	 * 
 	 * @return void
 	 */
 	public void savePlayer(ActionEvent event) throws IOException
@@ -118,7 +161,7 @@ public class EditPlayerController implements Initializable{
 			if (alert.showAndWait().get() == ButtonType.OK) {
 			}
 		}
-		if (selectedPositions.size() < min_positions) {
+		else if (selectedPositions.size() < min_positions) {
 			String min_positions_str = String.valueOf(min_positions);  
 			
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -129,34 +172,56 @@ public class EditPlayerController implements Initializable{
 			if (alert.showAndWait().get() == ButtonType.OK) {
 			}
 		}
+		else {
+			//Update player
+			team.updatePlayer(player, playerNameTextField.getText(), positions);//TODO fix positinos
+			
+			//Exit to EditTeamScene
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
+			loader.setControllerFactory(controllerClass -> new EditTeamController(team.getName()));
+			root = loader.load();		
+						
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		}
 		
-		//Edit or Create a New Team - TODO BE Connection
-		//Check if we are editing or creating a new team
-		//pass in all field and player list to object constructor
 		
 		return;
 
 	}
 	
+	/**
+	* A GUI Class
+	* Logs out user, brings user to LoginScene. Doesn't save anything. 
+	* Deletes temporary team and temporary player if they exist.
+	* OPTIONAL TODO - give user a warning if they haven't saved the team as it will be removed if not saved
+	* 
+	* @param event
+	* @throws IOException
+	* @return void
+	*/
 	public void logout(ActionEvent event)throws IOException
-	{
-		
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Logout");
-		alert.setHeaderText("You're about to logout!");
-		alert.setContentText("Do you want to save before exiting?");
-		
-		if (alert.showAndWait().get() == ButtonType.OK) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
-			root = loader.load();
-					
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-			System.out.println("You successfully logged out!");
-
+	{	
+		if (player.getName().equals(" ")) {
+			team.removePlayer(" ");
 		}
+		if (team.getName().equals("new_team")) {
+			Main.user.removeTeam("new_team");
+		}
+		
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
+		root = loader.load();
+				
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		System.out.println("You successfully logged out!");
+
+		
 	}
 
 
