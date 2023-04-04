@@ -24,28 +24,26 @@ public class SoccerLineupGenerator7v7{
    * @param numberOfShifts
    * @return Lineup generated Lineup
    */
-  static ArrayList<ArrayList<String>> generateLineup(ArrayList<Player> playerList, SoccerFormations formation, int numberOfShifts){
+  static ArrayList<ArrayList<String>> generateLineup(ArrayList<String> playerList, SoccerFormations formation, int numberOfShifts){
 	 
 	  Collections.shuffle(playerList, new Random());
-	  
 	  ArrayList<ArrayList<String>> lineuprows  = new ArrayList<>();
 	  
 	  for (int i = 0; i < numberOfShifts; i++) {
-		    Player last = playerList.remove(playerList.size() - 1);
+		    String last = playerList.remove(playerList.size() - 1);
 		    playerList.add(0, last);
 		    
 			ArrayList<String> PlayerNames = new ArrayList<String>();
 			  
 			for (int i1 = 0; i1 < playerList.size(); i1++) {
-					  PlayerNames.add(playerList.get(i1).getName());
+					  PlayerNames.add(playerList.get(i1));
 			}
 				  lineuprows.add(PlayerNames);  
-	  }	
-		   
+	  }		   
     return lineuprows;
   }
-  
-  static ArrayList<ArrayList<Player>> generateLineupPlayers(ArrayList<Player> playerList, SoccerFormations formation, int numberOfShifts){
+
+  public static ArrayList<ArrayList<Player>> generateLineupPlayers(ArrayList<Player> playerList, SoccerFormations formation, int numberOfShifts){
 		 
 	  Collections.shuffle(playerList, new Random());
 	  
@@ -67,38 +65,17 @@ public class SoccerLineupGenerator7v7{
   }
   
   	public static void main(String args[]) {
-      ArrayList<Player> playerList = new ArrayList<Player>();
-      SoccerPlayer player1 = new SoccerPlayer();
+      ArrayList<String> playerList = new ArrayList<String>();
+     String player1 = "Grace";
+     String player2 = "Mike";
+     String player3 = "Dave";
+     String player4 = "Madison";
+     String player5 = "Colin";
+     String player6 = "Matt";
+     String player7 = "Ish";
+     String player8 = "Charlie";
+     
       
-      player1.setName("Michael");
-      
-      SoccerPlayer player2 = new SoccerPlayer();
-      
-      player2.setName("Grace");
-      
-      SoccerPlayer player3 = new SoccerPlayer();
-      
-      player3.setName("David");
-      
-      SoccerPlayer player4 = new SoccerPlayer();
-      
-      player4.setName("Momison");
-      
-      SoccerPlayer player5 = new SoccerPlayer();
-      
-      player5.setName("Eli");
-      
-      SoccerPlayer player6 = new SoccerPlayer();
-      
-      player6.setName("Sam");
-      
-      SoccerPlayer player7 = new SoccerPlayer();
-      
-      player7.setName("Colin");
-      
-      SoccerPlayer player8 = new SoccerPlayer();
-      
-      player8.setName("Charlie");
       
       playerList.add(player1);
       playerList.add(player2);
@@ -113,14 +90,11 @@ public class SoccerLineupGenerator7v7{
       
       ArrayList<ArrayList<String>> lineup = SoccerLineupGenerator7v7.generateLineup(playerList, SoccerFormations.TWO_THREE_ONE ,6);
       
-      
       for (int i = 0; i < lineup.size(); i++) {
           System.out.println("Lineup for shift " + (i+1) + ": " + lineup.get(i));
       }
   }
-      
-      
-      
+          
       
 
    }
