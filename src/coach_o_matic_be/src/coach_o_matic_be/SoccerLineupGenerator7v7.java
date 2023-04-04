@@ -45,7 +45,7 @@ public class SoccerLineupGenerator7v7{
     return lineuprows;
   }
   
-  static ArrayList<ArrayList<Player>> generateLineupPlayers(ArrayList<Player> playerList, SoccerFormations formation, int numberOfShifts){
+  public static ArrayList<ArrayList<Player>> generateLineupPlayers(ArrayList<Player> playerList, SoccerFormations formation, int numberOfShifts){
 		 
 	  Collections.shuffle(playerList, new Random());
 	  
@@ -113,14 +113,11 @@ public class SoccerLineupGenerator7v7{
       
       ArrayList<ArrayList<String>> lineup = SoccerLineupGenerator7v7.generateLineup(playerList, SoccerFormations.TWO_THREE_ONE ,6);
       
-      
       for (int i = 0; i < lineup.size(); i++) {
           System.out.println("Lineup for shift " + (i+1) + ": " + lineup.get(i));
       }
   }
-      
-      
-      
+          
       
 
    }
