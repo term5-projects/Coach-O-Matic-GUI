@@ -10,7 +10,7 @@ import java.util.UUID;
  * a list of players, number of shifts, and formation.
  * 
  *
- * @author Michael McCarthy
+ * @author Michael McCarthy, David Davila
  * @version 1.0
  * @since 2023-03-30
  */
@@ -19,12 +19,12 @@ public class SoccerLineupGenerator7v7{
 
 	/**
    * generates lineup object for 7v7 soccer match.
-   * @param playerList list of players included in the lineup
+   * @param playerList list of strings included in the lineup
    * @param formation formation the lineup needs to be in
    * @param numberOfShifts
-   * @return Lineup generated Lineup
+   * @return an arraylist that with has arralist of strings representing a shift
    */
-  static ArrayList<ArrayList<String>> generateLineup(ArrayList<String> playerList, SoccerFormations formation, int numberOfShifts){
+  public static ArrayList<ArrayList<String>> generateLineup(ArrayList<String> playerList, SoccerFormations formation, int numberOfShifts){
 	 
 	  Collections.shuffle(playerList, new Random());
 	  ArrayList<ArrayList<String>> lineuprows  = new ArrayList<>();
@@ -38,31 +38,12 @@ public class SoccerLineupGenerator7v7{
 			for (int i1 = 0; i1 < playerList.size(); i1++) {
 					  PlayerNames.add(playerList.get(i1));
 			}
+			PlayerNames.add(0,Integer.toString(i+1));
 				  lineuprows.add(PlayerNames);  
 	  }		   
     return lineuprows;
   }
 
-  public static ArrayList<ArrayList<Player>> generateLineupPlayers(ArrayList<Player> playerList, SoccerFormations formation, int numberOfShifts){
-		 
-	  Collections.shuffle(playerList, new Random());
-	  
-	  ArrayList<ArrayList<Player>> lineuprows  = new ArrayList<>();
-	  
-	  for (int i = 0; i < numberOfShifts; i++) {
-		    Player last = playerList.remove(playerList.size() - 1);
-		    playerList.add(0, last);
-		    
-			ArrayList<Player> PlayersShifted = new ArrayList<Player>();
-			  
-			for (int i1 = 0; i1 < playerList.size(); i1++) {
-				PlayersShifted.add(playerList.get(i1));
-			}
-				  lineuprows.add(PlayersShifted);  
-	  }	
-		   
-    return lineuprows;
-  }
   
   	public static void main(String args[]) {
       ArrayList<String> playerList = new ArrayList<String>();
