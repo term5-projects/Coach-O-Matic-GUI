@@ -113,6 +113,7 @@ public class SoccerTeam implements Team<SoccerPlayer> {
 
   public void addPlayer(SoccerPlayer playerToAdd) {
     this.playerList.add(playerToAdd);
+    System.out.println("Added " + playerToAdd.getName() + " to " + this.getName());
   }
 
   public boolean removePlayer(String nameOfPlayerToRemove) {

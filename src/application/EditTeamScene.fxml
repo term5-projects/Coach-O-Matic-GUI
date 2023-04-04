@@ -19,12 +19,12 @@
       </Label>
       <Label layoutX="23.0" layoutY="78.0" text="Team Name:" />
       <Label layoutX="23.0" layoutY="109.0" text="Shifts per Game:" />
-      <Label fx:id="FormationLabel" layoutX="23.0" layoutY="150.0" text="Formation:" />
+      <Label fx:id="formationLabel" layoutX="23.0" layoutY="150.0" text="Formation:" />
       <TextField fx:id="teamNameTextField" layoutX="165.0" layoutY="74.0" />
       <Spinner fx:id="shiftsSpinner" layoutX="165.0" layoutY="105.0" />
       <ChoiceBox fx:id="formationChoiceBox" layoutX="165.0" layoutY="146.0" prefWidth="150.0" />
       <Label layoutX="23.0" layoutY="192.0" text="Players" />
-      <Button fx:id="AddPlayerButton" layoutX="336.0" layoutY="264.0" mnemonicParsing="false" onAction="#addPlayer" text="New Player" />
+      <Button fx:id="addPlayerButton" layoutX="336.0" layoutY="264.0" mnemonicParsing="false" onAction="#addPlayer" text="New Player" />
       <ScrollPane layoutX="107.0" layoutY="188.0" prefHeight="200.0" prefWidth="200.0">
          <content>
             <ListView fx:id="playerListView" prefHeight="493.0" prefWidth="200.0" />
@@ -35,6 +35,5 @@
       <Button fx:id="deletePlayerButton" layoutX="336.0" layoutY="225.0" mnemonicParsing="false" onAction="#deletePlayer" text="Delete Selected Player" />
       <Button fx:id="returnButton" layoutX="9.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToPreviousScene" text="Return" />
       <Button fx:id="logoutButton" layoutX="524.0" layoutY="15.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-      <ChoiceBox fx:id="test" layoutX="410.0" layoutY="82.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

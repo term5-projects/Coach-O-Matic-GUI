@@ -124,8 +124,12 @@ public class EditPlayerController implements Initializable{
 	 */
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
+		//delete unsaved player if creating a player
+		if (player.getName().equals(" ")) {
+			team.removePlayer(" ");
+		}
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-		loader.setControllerFactory(controllerClass -> new TeamMenuController(team.getName()));
+		loader.setControllerFactory(controllerClass -> new EditTeamController(team.getName()));
 		root = loader.load();		
 				
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
