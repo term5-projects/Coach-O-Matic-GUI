@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.CheckListView;
 
+import coach_o_matic_be.src.coach_o_matic_be.SoccerTeam;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 
@@ -64,14 +65,17 @@ public class TeamMenuController implements Initializable{
 	@FXML private CheckListView<String> availablePlayersCheckListView;
 	ArrayList<String> selectedPlayers =new ArrayList<>();
 	
-	private String current_team;
+	private SoccerTeam team;
 	
 	//TODO -BE Connections -> remove this temporary stuff	
 	private String[] players = {"Misha", "Glyn", "Howard"};//TODO -> Temporary
 	int num_players_in_formation = 2; //TODO -> Temporary
 	
 
-	
+	public TeamMenuController(String teamName) {
+		
+		//team = Main.user.getTeam(teamName);
+	}
 	/**
 	 * A GUI Class
 	 * Initializes the available players checklist. 
@@ -118,14 +122,6 @@ public class TeamMenuController implements Initializable{
 		teamnamelabel.setText( TeamName + " Menu");
 	}
 	
-	/**
-	 * Sets the team selected from the User Menu
-	 * @param team_name
-	 */
-	public void setSelectedTeam(String team_name) {
-		current_team = team_name;
-	}
-
 	/**
 	 * A GUI Class
 	 * Logs out user, brings user to LoginScene
@@ -207,7 +203,7 @@ public class TeamMenuController implements Initializable{
 	/**
 	 * A GUI Class
 	 * Brings user to edit team scene
-	 * TODO - BE Connection - need to "pass" in current team and use modifying methods instead of creating a new team. 
+	 *
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -216,14 +212,12 @@ public class TeamMenuController implements Initializable{
 	public void switchToEditTeamScene(ActionEvent event)throws IOException
 
 	{		
-		//TODO BE Connection - pass in current team 
-		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-		root = loader.load();
+		EditTeamController controller = new EditTeamController(team.getName());
+		loader.setController(controller);
 		
-		EditTeamController controller = loader.getController();
-		controller.setTeamToEdit(current_team);
-		
+		root = loader.load();		
+			
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);

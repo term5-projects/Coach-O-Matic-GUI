@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +50,8 @@ public class UserMenuController implements Initializable{
 	
 	@FXML private AnchorPane userMenuScenePane;
 	
-	ArrayList<String> teamsListString;
+	private ObservableList<String> teamsListString;
+	ObservableList<String> list = FXCollections.observableArrayList();
 	
 	public String teamname;
 	
@@ -58,12 +61,12 @@ public class UserMenuController implements Initializable{
 	 * @param ArrayList<Team>
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> getStringTeamList(ArrayList<SoccerTeam> teamList){
-		ArrayList<String> stringTeamList = new ArrayList<>();
+	public ObservableList<String> getStringTeamList(ArrayList<SoccerTeam> teamList){
+		ObservableList<String> list = FXCollections.observableArrayList();
 		for(SoccerTeam t:teamList) {
-			stringTeamList.add(t.getName());
+			list.add(t.getName());
 		}
-		return stringTeamList;
+		return list;
 	}
 
 	/**
@@ -74,8 +77,12 @@ public class UserMenuController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		list.add("help");
 		teamsListString = getStringTeamList(Main.user.getTeams());
-		selectTeamChoiceBox.getItems().addAll(teamsListString);		
+		System.out.println(teamsListString + "teams user has");
+		//selectTeamChoiceBox.getItems().addAll(teamsListString);
+		selectTeamChoiceBox.getItems().addAll(list);
+
 	}
 	
 	
@@ -89,6 +96,7 @@ public class UserMenuController implements Initializable{
 	public void displayName(String username) {
 		usernameLabel.setText("Hi " + username);
 	}
+
 	
 	
 	/**
@@ -124,10 +132,10 @@ public class UserMenuController implements Initializable{
 	{		
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-		root = loader.load();
+		EditTeamController controller = new EditTeamController();
+		loader.setController(controller);
 		
-		EditTeamController controller = loader.getController();
-		controller.setTeamToEdit("new_team");
+		root = loader.load();		
 			
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
@@ -147,33 +155,46 @@ public class UserMenuController implements Initializable{
 	 * @return void
 	 */
 	public void visitTeamMenu(ActionEvent event) throws IOException {
-			teamname = selectTeamChoiceBox.getValue();
-			boolean teamname_empty = teamname.isBlank();
-			if (teamname_empty) {
+			
+			if (selectTeamChoiceBox.getValue() == null) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Select Team");
-				alert.setHeaderText("Invalid Input");
-				alert.setContentText("Please select one of the teams from the the drop down list.");
+				alert.setHeaderText("No Teams to Select From");
+				alert.setContentText("Please create a team.");
 				
 				if (alert.showAndWait().get() == ButtonType.OK) {
 				}
 			}
-			
 			else {
-				//TODO - Get the team object user.getTeam(teamname);
+				teamname = selectTeamChoiceBox.getValue();
+				boolean teamname_empty = teamname.isBlank();
+				if (teamname_empty) {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Select Team");
+					alert.setHeaderText("Invalid Input");
+					alert.setContentText("Please select one of the teams from the the drop down list.");
+					
+					if (alert.showAndWait().get() == ButtonType.OK) {
+					}
+				}
 				
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
-				root = loader.load();
-				
-				TeamMenuController teamMenuController = loader.getController();
-				teamMenuController.displayTeamName(teamname);
-				teamMenuController.setSelectedTeam(teamname);
-				
-				stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-				scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();
+				else {
+					//TODO - Get the team object user.getTeam(teamname);
+
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
+					TeamMenuController controller = new TeamMenuController(teamname);
+					loader.setController(controller);
+					
+					root = loader.load();
+					
+					controller.displayTeamName(teamname);				
+					stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				}
 			}
+			
 	}
 
 

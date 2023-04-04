@@ -30,6 +30,10 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.CheckListView;
 
+import coach_o_matic_be.src.coach_o_matic_be.SoccerPlayer;
+import coach_o_matic_be.src.coach_o_matic_be.SoccerPositions;
+import coach_o_matic_be.src.coach_o_matic_be.SoccerTeam;
+
 /**
 * <h1>EditPlayerController</h1>
 * EditPlayerController class is used to edit player name and positions.
@@ -40,7 +44,14 @@ import org.controlsfx.control.CheckListView;
 * @since   2023-03-29 
 */
 public class EditPlayerController implements Initializable{
-	
+	private static final SoccerPositions GK = null;
+	private static final SoccerPositions LD = null;
+	private static final SoccerPositions RD = null;
+	private static final SoccerPositions LM = null;
+	private static final SoccerPositions CM = null;
+	private static final SoccerPositions RM = null;
+	private static final SoccerPositions ST = null;
+
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
@@ -65,17 +76,28 @@ public class EditPlayerController implements Initializable{
 	
 	@FXML private Label playerNameLabel;
 	
+	private SoccerTeam team;
+	private SoccerPlayer player;
+
+	
+	//Set to all positions
+	private SoccerPositions[] positions = {GK, LD, RD, LM, CM, RM, ST};
+	private String[] string_positions = {"GK","LD","LD","RD","LM","CM","RM","ST"};
 	
 	
 	//TODO BE Connections -> remove this when we have a BE
-	int min_positions = 2; //NEEDS UPDATE - BE - add as an attribute of the team? or just hard code somewhere as 7? should specify minimum number of positions player must play for algorithm to work
-	private String[] positions = {"GK", "LD", "RD"};//TEMPORARY
+	int min_positions = 7; //NEEDS UPDATE - BE - add as an attribute of the team? or just hard code somewhere as 7? should specify minimum number of positions player must play for algorithm to work
 	
-	//get positions list TODO - BE Connection
-	//private String[] playerPositions = formation.getPositions(); TODO
-	//private ArrayList<String> playerPositions = new ArrayList<String>();
+	public EditPlayerController(String teamName) {
+		team = Main.user.getTeam(teamName);
+		player = team.createPlayer("new_player", positions);
+		team.addPlayer(player);
+	}
 	
-	
+	public EditPlayerController(String team_name, String player_name) {
+		team = Main.user.getTeam(team_name);
+		player = team.getPlayer(player_name);
+	}
 	
 	/**
 	 * A GUI Class
@@ -85,7 +107,7 @@ public class EditPlayerController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Player List View
-		positionsCheckListView.getItems().addAll(positions);
+		positionsCheckListView.getItems().addAll(string_positions);
 		positionsCheckListView.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super String>) new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	 selectedPositions.clear();
@@ -105,8 +127,11 @@ public class EditPlayerController implements Initializable{
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-		root = loader.load();
-				
+		EditTeamController controller = new EditTeamController(team.getName());
+		loader.setController(controller);
+		
+		root = loader.load();		
+			
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
@@ -136,7 +161,7 @@ public class EditPlayerController implements Initializable{
 			if (alert.showAndWait().get() == ButtonType.OK) {
 			}
 		}
-		if (selectedPositions.size() < min_positions) {
+		else if (selectedPositions.size() < min_positions) {
 			String min_positions_str = String.valueOf(min_positions);  
 			
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -147,10 +172,23 @@ public class EditPlayerController implements Initializable{
 			if (alert.showAndWait().get() == ButtonType.OK) {
 			}
 		}
+		else {
+			//Update player
+			team.updatePlayer(player, playerNameTextField.getText(), positions);
+			
+			//Exit to EditTeamScene
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
+			EditTeamController controller = new EditTeamController(team.getName());
+			loader.setController(controller);
+			
+			root = loader.load();		
+				
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		}
 		
-		//Edit or Create a New Player - TODO BE Connection
-		//Check if we are editing or creating player
-		//pass in all field and player list to object constructor
 		
 		return;
 

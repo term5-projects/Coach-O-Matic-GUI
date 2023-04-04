@@ -92,6 +92,7 @@ public class User {
   
   public void addTeam(SoccerTeam teamToAdd) {
     teams.add(teamToAdd);
+    System.out.println("New team added: " + teamToAdd.getName());
   }
 
   /**
@@ -148,16 +149,17 @@ public class User {
    * @param updatedTeamName
    * @param updatedTeamFormation
    * @param updatedGameShifts
-   * @return SoccerTeam
+   * @return void
    */
-  public SoccerTeam updateTeam(SoccerTeam teamToUpdate, String updatedTeamName,
+  public void updateTeam(SoccerTeam teamToUpdate, String updatedTeamName,
       SoccerFormations updatedTeamFormation, int updatedGameShifts) {
     teamToUpdate.setName(updatedTeamName);
     teamToUpdate.setFormation(updatedTeamFormation);
     teamToUpdate.setGameShifts(updatedGameShifts);
+    System.out.println("Updated team: " + teamToUpdate.getName());
 
-    SoccerTeam updatedTeam = teamToUpdate;
-    return updatedTeam;
+    return;
+    
   }
 
 }

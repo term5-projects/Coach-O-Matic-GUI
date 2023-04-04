@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditTeamController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="223.0" layoutY="16.0" text="Edit Team">
          <font>
@@ -35,5 +35,6 @@
       <Button fx:id="deletePlayerButton" layoutX="336.0" layoutY="225.0" mnemonicParsing="false" onAction="#deletePlayer" text="Delete Selected Player" />
       <Button fx:id="returnButton" layoutX="9.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToPreviousScene" text="Return" />
       <Button fx:id="logoutButton" layoutX="524.0" layoutY="15.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+      <ChoiceBox fx:id="test" layoutX="410.0" layoutY="82.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
