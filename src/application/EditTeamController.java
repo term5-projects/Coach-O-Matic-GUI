@@ -74,12 +74,14 @@ public class EditTeamController implements Initializable{
 	
 	public SoccerTeam team;
 	
+	private String defaultTeamName = "";
+	
 	private String[] formations = {"2-3-1"}; //TODO - fix formations
 	private String selectedPlayer;
 
 
 	public EditTeamController() {
-		team = new SoccerTeam("new_team"); 
+		team = new SoccerTeam(defaultTeamName); 
 		Main.user.addTeam(team);
 		System.out.println("EditTeamController() called");		
 		
@@ -160,7 +162,7 @@ public class EditTeamController implements Initializable{
 	
 	/**
 	* A GUI Class
-	* Logs out user, brings user to LoginScene. Doesn't save anything. Deletes the temporary "new_team" if exists 
+	* Logs out user, brings user to LoginScene. Doesn't save anything. Deletes the temporary  team if exists 
 	* 
 	* @param event
 	* @throws IOException
@@ -168,8 +170,8 @@ public class EditTeamController implements Initializable{
 	*/
 	public void logout(ActionEvent event)throws IOException
 	{
-		if (team.getName().equals("new_team")) {
-			Main.user.removeTeam("new_team");
+		if (team.getName().equals(defaultTeamName)) {
+			Main.user.removeTeam(defaultTeamName);
 		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
@@ -331,8 +333,8 @@ public class EditTeamController implements Initializable{
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
 		//Delete new_team if not updated and saved, exit to UserMenu as no team was created
-		if (team.getName().equals("new_team")) {
-			Main.user.removeTeam("new_team");
+		if (team.getName().equals(defaultTeamName)) {
+			Main.user.removeTeam(defaultTeamName);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
 			root = loader.load();
 					

@@ -84,6 +84,8 @@ public class EditPlayerController implements Initializable{
 	private SoccerPositions[] positions = {GK, LD, RD, LM, CM, RM, ST};
 	private String[] string_positions = {"GK","LD","RD","LM","CM","RM","ST"};
 	
+	private String defaultTeamName = "";
+	
 	int min_positions = 7; //TODO - SHOULD COME FROM BE NOT FE! maybe add as an attribute of lineup generator? 
 	
 	public EditPlayerController(String team_name) {
@@ -210,8 +212,8 @@ public class EditPlayerController implements Initializable{
 		if (player.getName().equals("")) {
 			team.removePlayer("");
 		}
-		if (team.getName().equals("new_team")) {
-			Main.user.removeTeam("new_team");
+		if (team.getName().equals(defaultTeamName)) {
+			Main.user.removeTeam(defaultTeamName);
 		}
 		
 		
