@@ -19,7 +19,7 @@ import java.util.UUID;
 public class SoccerPlayer implements Player
 {
     final UUID id;
-    public String name;
+    private String name;
     private SoccerPositions[] positions;
 
     /**
