@@ -72,10 +72,10 @@ public class TeamMenuController implements Initializable{
 	int num_players_in_formation = 2; //TODO -> Temporary
 	
 
-	public TeamMenuController(String teamName) {
-		
-		//team = Main.user.getTeam(teamName);
-	}
+//	public TeamMenuController(String teamName) {
+//		
+//		//team = Main.user.getTeam(teamName);
+//	}
 	/**
 	 * A GUI Class
 	 * Initializes the available players checklist. 
@@ -109,7 +109,11 @@ public class TeamMenuController implements Initializable{
 //		}
 //		return stringPlayerList;
 //	}
-	
+	public void setTeam(String teamname) {
+		System.out.println("TeamMenuController about to get this team: " + teamname);
+		team = Main.user.getTeam(teamname);
+		System.out.println("TeamMenuController team is set to :" + teamname);
+	}
 	
 	/**
 	 * A GUI Class

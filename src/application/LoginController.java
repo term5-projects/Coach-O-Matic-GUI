@@ -67,12 +67,6 @@ public class LoginController {
 				if (Main.user.getUsername().equals(username) && Main.user.getPassword().equals(password)) {
 					
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
-					
-					
-
-					UserMenuController controller = new UserMenuController();
-					loader.setController(controller);
-					
 					root = loader.load();
 					
 					stage = (Stage)((Node)event.getSource()).getScene().getWindow();

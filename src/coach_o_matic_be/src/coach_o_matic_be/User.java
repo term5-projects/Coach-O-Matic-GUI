@@ -128,11 +128,11 @@ public class User {
     Iterator<SoccerTeam> itr = teams.iterator();
 
     while (itr.hasNext()) {
+      SoccerTeam team = itr.next();
+      String name = team.getName();
 
-      String name = (itr.next()).getName();
-
-      if (teamName == name) {
-        return itr.next();
+      if (teamName.equals(name)) {
+        return team;
       }
     }
     return null;

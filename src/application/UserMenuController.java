@@ -77,11 +77,10 @@ public class UserMenuController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		list.add("help");
 		teamsListString = getStringTeamList(Main.user.getTeams());
-		System.out.println(teamsListString + "teams user has");
-		//selectTeamChoiceBox.getItems().addAll(teamsListString);
-		selectTeamChoiceBox.getItems().addAll(list);
+		System.out.println(teamsListString + " teams user has");
+		selectTeamChoiceBox.getItems().addAll(teamsListString);
+		//selectTeamChoiceBox.getItems().addAll(list);
 
 	}
 	
@@ -182,10 +181,12 @@ public class UserMenuController implements Initializable{
 					//TODO - Get the team object user.getTeam(teamname);
 
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
-					TeamMenuController controller = new TeamMenuController(teamname);
-					loader.setController(controller);
-					
 					root = loader.load();
+					TeamMenuController controller = loader.getController();
+					
+					controller.setTeam(teamname);
+					
+					
 					
 					controller.displayTeamName(teamname);				
 					stage = (Stage)((Node)event.getSource()).getScene().getWindow();

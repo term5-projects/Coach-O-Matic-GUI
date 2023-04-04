@@ -71,7 +71,8 @@ public class CreateAccountController {
 		    username = usernameTextField.getText();
 		    password = passwordField.getText();
 		    Main.user = new User(username, password);
-		    
+			SoccerTeam team = new SoccerTeam("test_team");
+			Main.user.addTeam(team);
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
 			root = loader.load();
