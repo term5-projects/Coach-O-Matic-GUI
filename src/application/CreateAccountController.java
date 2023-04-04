@@ -16,11 +16,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
+import coach_o_matic_be.src.coach_o_matic_be.*;
+
 /**
  * <h1>CreateAccountController</h1>
  * Creates new user accounts.
  * User must input a username and password to create the account.
- * TODO - BE Connection
  *
  * @author Grace Pearcey
  * @version 1.0
@@ -42,10 +43,10 @@ public class CreateAccountController {
 	private Scene scene;
 	private Parent root;
 	
+	
 	/**
 	 * Creates a user and returns to login page if user enters something for both username and password fields.
 	 * Gives user an alert if either of the fields are empty.
-	 * TODO - BE Connection
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -66,11 +67,10 @@ public class CreateAccountController {
 		}
 		else {
 			
-			//BE Connection TODO - Create User object with username and password
+			//Creates a  User object with username and password
 		    username = usernameTextField.getText();
 		    password = passwordField.getText();
-		    //TODO - createUser(username, password);
-		    
+		    Main.user = new User(username, password);
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
 			root = loader.load();

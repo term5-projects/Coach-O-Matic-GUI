@@ -50,7 +50,7 @@ public class SoccerTeam implements Team<SoccerPlayer> {
     setPlayers(emptyPlayerList);
 
     this.id = UUID.randomUUID();
-
+    System.out.println("New Soccer Team Created with name: " + name);
   }
     /**
    * Sets Properties for SoccerTeam object
@@ -116,7 +116,7 @@ public class SoccerTeam implements Team<SoccerPlayer> {
   }
 
   public boolean removePlayer(String nameOfPlayerToRemove) {
-
+	
     Iterator<SoccerPlayer> itr = playerList.iterator();
 
     while (itr.hasNext()) {
@@ -152,15 +152,15 @@ public class SoccerTeam implements Team<SoccerPlayer> {
    * @param playerToUpdate
    * @param updatedName
    * @param updatedPositions
-   * @return SoccerPlayer with updated properties
+   * @return void
    */
-  public SoccerPlayer updatePlayer(SoccerPlayer playerToUpdate, String updatedName,
+  public void updatePlayer(SoccerPlayer playerToUpdate, String updatedName,
       SoccerPositions[] updatedPositions) {
     playerToUpdate.setName(updatedName);
     playerToUpdate.setPositions(updatedPositions);
 
-    SoccerPlayer updatedPlayer = playerToUpdate;
-    return updatedPlayer;
+    System.out.println("Updated Player: " + updatedName);
+    return;
   }
 
   /**
