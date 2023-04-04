@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+<<<<<<< HEAD
 import coach_o_matic_be.src.coach_o_matic_be.Player;
 import coach_o_matic_be.src.coach_o_matic_be.SoccerFormations;
 import coach_o_matic_be.src.coach_o_matic_be.SoccerLineupGenerator7v7;
@@ -13,6 +14,10 @@ import coach_o_matic_be.src.coach_o_matic_be.SoccerPositions;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+=======
+import coach_o_matic_be.src.coach_o_matic_be.SoccerTeam;
+import coach_o_matic_be.src.coach_o_matic_be.Team;
+>>>>>>> 283554906fedb2d09d51e55cdebdc751acf3434c
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,8 +35,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 
 public class LineupController implements Initializable {
+=======
+/**
+* <h1>LineupController</h1>
+* LineupController class is used to display generated lineups to the user.
+* TODO - BE Connection.
+*
+* @author  Grace Pearcey, David Davilla
+* @version 1.0
+* @since   2023-03-29 
+*/
+public class LineupController {
+>>>>>>> 283554906fedb2d09d51e55cdebdc751acf3434c
 	
 	@FXML Label formationLabel;
 	
@@ -43,7 +61,19 @@ public class LineupController implements Initializable {
 	private Scene scene;
 	private Parent root;
 	
+	private SoccerTeam team;
 	
+	/**
+	 * LineupController constructor
+	 * TODO - may need to update for BE connection
+	 * 
+	 * @param team_name
+	 */
+	public LineupController(String team_name) {
+		team = Main.user.getTeam(team_name);
+	}
+	
+<<<<<<< HEAD
 	
   @FXML private TableView<String> lineupTable;
 
@@ -90,6 +120,16 @@ public class LineupController implements Initializable {
     	  
     }      
       
+=======
+	/**
+	* A GUI Class
+	* Logs out user, brings user to LoginScene. Doesn't update or save anything. 
+	* 
+	* @param event
+	* @throws IOException
+	* @return void
+	*/
+>>>>>>> 283554906fedb2d09d51e55cdebdc751acf3434c
 	public void logout(ActionEvent event) throws IOException
 
 	{
@@ -104,9 +144,17 @@ public class LineupController implements Initializable {
 
 	}
 	
+	/**
+	 * A GUI Class 
+	 * Returns to TeamMenuScene
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
+		loader.setControllerFactory(controllerClass -> new TeamMenuController(team.getName()));
 		root = loader.load();
 				
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();

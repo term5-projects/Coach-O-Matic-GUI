@@ -29,6 +29,7 @@ public class User {
     this.username = username;
     this.password = password;
     teams = new ArrayList<SoccerTeam>();
+    System.out.println("New user created with username: " + username + " and password: " + password);
   }
 
   /**
@@ -81,8 +82,17 @@ public class User {
 
   }
 
+  /**
+   * Returns a list of the user's teams
+   * @return ArrayList<SoccerTeam>
+   */
+  public ArrayList<SoccerTeam> getTeams() {
+	  return teams;
+  }
+  
   public void addTeam(SoccerTeam teamToAdd) {
     teams.add(teamToAdd);
+    System.out.println("New team added: " + teamToAdd.getName());
   }
 
   /**
@@ -118,11 +128,11 @@ public class User {
     Iterator<SoccerTeam> itr = teams.iterator();
 
     while (itr.hasNext()) {
+      SoccerTeam team = itr.next();
+      String name = team.getName();
 
-      String name = (itr.next()).getName();
-
-      if (teamName == name) {
-        return itr.next();
+      if (teamName.equals(name)) {
+        return team;
       }
     }
     return null;
@@ -139,16 +149,17 @@ public class User {
    * @param updatedTeamName
    * @param updatedTeamFormation
    * @param updatedGameShifts
-   * @return SoccerTeam
+   * @return void
    */
-  public SoccerTeam updateTeam(SoccerTeam teamToUpdate, String updatedTeamName,
+  public void updateTeam(SoccerTeam teamToUpdate, String updatedTeamName,
       SoccerFormations updatedTeamFormation, int updatedGameShifts) {
     teamToUpdate.setName(updatedTeamName);
     teamToUpdate.setFormation(updatedTeamFormation);
     teamToUpdate.setGameShifts(updatedGameShifts);
+    System.out.println("Updated team: " + teamToUpdate.getName());
 
-    SoccerTeam updatedTeam = teamToUpdate;
-    return updatedTeam;
+    return;
+    
   }
 
 }

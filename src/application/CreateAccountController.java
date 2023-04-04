@@ -16,11 +16,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
+import coach_o_matic_be.src.coach_o_matic_be.*;
+
 /**
  * <h1>CreateAccountController</h1>
  * Creates new user accounts.
  * User must input a username and password to create the account.
- * TODO - BE Connection
  *
  * @author Grace Pearcey
  * @version 1.0
@@ -28,6 +29,16 @@ import javafx.stage.Stage;
  */
 
 public class CreateAccountController {
+	//TODO change if Positions change
+	
+	private static final SoccerPositions GK = null;
+	private static final SoccerPositions LD = null;
+	private static final SoccerPositions RD = null;
+	private static final SoccerPositions LM = null;
+	private static final SoccerPositions CM = null;
+	private static final SoccerPositions RM = null;
+	private static final SoccerPositions ST = null;
+	private SoccerPositions[] positions = {GK, LD, RD, LM, CM, RM, ST};
 	
 	@FXML private Button saveAccountButton;
 	@FXML private Button returnButton;
@@ -42,10 +53,10 @@ public class CreateAccountController {
 	private Scene scene;
 	private Parent root;
 	
+	
 	/**
 	 * Creates a user and returns to login page if user enters something for both username and password fields.
 	 * Gives user an alert if either of the fields are empty.
-	 * TODO - BE Connection
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -66,12 +77,11 @@ public class CreateAccountController {
 		}
 		else {
 			
-			//BE Connection TODO - Create User object with username and password
+			//Creates a  User object with username and password
 		    username = usernameTextField.getText();
 		    password = passwordField.getText();
-		    //TODO - createUser(username, password);
-		    
-			
+		    Main.user = new User(username, password);
+			addExampleTeam();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
 			root = loader.load();
 					
@@ -82,6 +92,36 @@ public class CreateAccountController {
 		}
 	}
 	
+	private void addExampleTeam() {
+		SoccerTeam example_team = new SoccerTeam("Example Team");
+		
+		SoccerPlayer p1 = example_team.createPlayer("Andrew", positions);
+		example_team.addPlayer(p1);
+		
+		SoccerPlayer p2 = example_team.createPlayer("Reza", positions);
+		example_team.addPlayer(p2);
+		
+		SoccerPlayer p3 = example_team.createPlayer("Thumeera", positions);
+		example_team.addPlayer(p3);
+		
+		SoccerPlayer p4 = example_team.createPlayer("Ebrahim", positions);
+		example_team.addPlayer(p4);
+		
+		SoccerPlayer p5 = example_team.createPlayer("Siu", positions);
+		example_team.addPlayer(p5);
+		
+		SoccerPlayer p6 = example_team.createPlayer("Glyn", positions);
+		example_team.addPlayer(p6);
+		
+		SoccerPlayer p7 = example_team.createPlayer("Misha", positions);
+		example_team.addPlayer(p7);
+		
+		SoccerPlayer p8 = example_team.createPlayer("Rajeevan", positions);
+		example_team.addPlayer(p8);
+		
+		Main.user.addTeam(example_team);
+		
+	}
 	/**
 	 * Returns user to login menu without creating a new user.
 	 * 
