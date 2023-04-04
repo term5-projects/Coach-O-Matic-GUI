@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +30,6 @@ import coach_o_matic_be.src.coach_o_matic_be.*;
 /**
 * <h1>UserMenuController</h1>
 * UserMenuController class allows user to create a new team or select an existing.
-* TODO - BE Connection
 * 
 * @author  Grace Pearcey
 * @version 1.0
@@ -51,7 +52,7 @@ public class UserMenuController implements Initializable{
 	@FXML private AnchorPane userMenuScenePane;
 	
 	private ObservableList<String> teamsListString;
-	ObservableList<String> list = FXCollections.observableArrayList();
+
 	
 	public String teamname;
 	
@@ -77,11 +78,14 @@ public class UserMenuController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		//Display username
+		displayName(Main.user.getUsername());
+		
+		//initialze Team ChoiceBox
 		teamsListString = getStringTeamList(Main.user.getTeams());
 		System.out.println(teamsListString + " teams user has");
 		selectTeamChoiceBox.getItems().addAll(teamsListString);
-		//selectTeamChoiceBox.getItems().addAll(list);
-
 	}
 	
 	
@@ -121,7 +125,6 @@ public class UserMenuController implements Initializable{
 	/**
 	 * A GUI Class
 	 * Create a new team and brings user to EditTeamScene
-	 * TODO - BE Connection - Make new team object, and use edit team controller to add new team rather than modify. 
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -129,17 +132,18 @@ public class UserMenuController implements Initializable{
 	 */
 	public void addTeam(ActionEvent event)throws IOException
 	{		
-		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-		EditTeamController controller = new EditTeamController();
-		loader.setController(controller);
-		
-		root = loader.load();		
-			
+
+		// Creates a controller factory that allows for calling EditTeamController constructor before loading
+		loader.setControllerFactory(controllerClass -> new EditTeamController());
+
+		root = loader.load();
+
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+
 	}
 	
 
@@ -147,7 +151,6 @@ public class UserMenuController implements Initializable{
 	 * A GUI Class
 	 * Brings user to selected Team Menu. 
 	 * Displays an alert if no team is selected. 
-	 * TODO - BE Connection - "load" up the selected team
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -156,6 +159,8 @@ public class UserMenuController implements Initializable{
 	public void visitTeamMenu(ActionEvent event) throws IOException {
 			
 			if (selectTeamChoiceBox.getValue() == null) {
+				
+				//No teams created				
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Select Team");
 				alert.setHeaderText("No Teams to Select From");
@@ -168,6 +173,8 @@ public class UserMenuController implements Initializable{
 				teamname = selectTeamChoiceBox.getValue();
 				boolean teamname_empty = teamname.isBlank();
 				if (teamname_empty) {
+					
+					//No team selected					
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Select Team");
 					alert.setHeaderText("Invalid Input");
@@ -178,17 +185,12 @@ public class UserMenuController implements Initializable{
 				}
 				
 				else {
-					//TODO - Get the team object user.getTeam(teamname);
-
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));
+					
+					//Team selected -> Display the selected team's menu scene
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamMenuScene.fxml"));		
+					loader.setControllerFactory(controllerClass -> new TeamMenuController(teamname)); //sets the teamname of team to load
 					root = loader.load();
-					TeamMenuController controller = loader.getController();
 					
-					controller.setTeam(teamname);
-					
-					
-					
-					controller.displayTeamName(teamname);				
 					stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 					scene = new Scene(root);
 					stage.setScene(scene);

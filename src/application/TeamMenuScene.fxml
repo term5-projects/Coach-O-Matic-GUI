@@ -27,6 +27,6 @@
         </content>
       </ScrollPane>
       <Label layoutX="252.0" layoutY="77.0" text="Select Players:" />
-      <Button fx:id="returnButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToPreviousScene" text="Return" />
+      <Button fx:id="returnButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToUserMenu" text="Return to User Menu" />
    </children>
 </AnchorPane>

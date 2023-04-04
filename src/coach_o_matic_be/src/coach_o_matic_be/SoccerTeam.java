@@ -116,7 +116,7 @@ public class SoccerTeam implements Team<SoccerPlayer> {
   }
 
   public boolean removePlayer(String nameOfPlayerToRemove) {
-
+	
     Iterator<SoccerPlayer> itr = playerList.iterator();
 
     while (itr.hasNext()) {

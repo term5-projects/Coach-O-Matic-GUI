@@ -37,7 +37,7 @@ import coach_o_matic_be.src.coach_o_matic_be.SoccerTeam;
 /**
 * <h1>EditPlayerController</h1>
 * EditPlayerController class is used to edit player name and positions.
-* TODO - BE Connection
+* TODO - fix positions - right now it's just a hardcoded string for displaying and gui has no effect on actual player posistions
 *
 * @author  Grace Pearcey
 * @version 1.0
@@ -82,20 +82,18 @@ public class EditPlayerController implements Initializable{
 	
 	//Set to all positions
 	private SoccerPositions[] positions = {GK, LD, RD, LM, CM, RM, ST};
-	private String[] string_positions = {"GK","LD","LD","RD","LM","CM","RM","ST"};
+	private String[] string_positions = {"GK","LD","RD","LM","CM","RM","ST"};
 	
+	int min_positions = 7; //TODO - SHOULD COME FROM BE NOT FE! maybe add as an attribute of lineup generator? 
 	
-	//TODO BE Connections -> remove this when we have a BE
-	int min_positions = 7; //NEEDS UPDATE - BE - add as an attribute of the team? or just hard code somewhere as 7? should specify minimum number of positions player must play for algorithm to work
-	
-	public EditPlayerController(String teamName) {
-		team = Main.user.getTeam(teamName);
-		player = team.createPlayer("new_player", positions);
-		team.addPlayer(player);
+	public EditPlayerController(String team_name) {
+		this.team = Main.user.getTeam(team_name);
+		player = new SoccerPlayer();
+		this.team.addPlayer(player);
 	}
 	
 	public EditPlayerController(String team_name, String player_name) {
-		team = Main.user.getTeam(team_name);
+		this.team = Main.user.getTeam(team_name);
 		player = team.getPlayer(player_name);
 	}
 	
@@ -127,11 +125,9 @@ public class EditPlayerController implements Initializable{
 	public void returnToPreviousScene(ActionEvent event) throws IOException
 	{		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-		EditTeamController controller = new EditTeamController(team.getName());
-		loader.setController(controller);
-		
+		loader.setControllerFactory(controllerClass -> new TeamMenuController(team.getName()));
 		root = loader.load();		
-			
+				
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
@@ -143,7 +139,7 @@ public class EditPlayerController implements Initializable{
 	/**
 	 * A GUI Class
 	 * Saves Player name and position updates
-	 * TODO - BE Connection
+	 * TODO - actually set positions from CheckListView
 	 * 
 	 * @return void
 	 */
@@ -174,15 +170,13 @@ public class EditPlayerController implements Initializable{
 		}
 		else {
 			//Update player
-			team.updatePlayer(player, playerNameTextField.getText(), positions);
+			team.updatePlayer(player, playerNameTextField.getText(), positions);//TODO fix positinos
 			
 			//Exit to EditTeamScene
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EditTeamScene.fxml"));
-			EditTeamController controller = new EditTeamController(team.getName());
-			loader.setController(controller);
-			
+			loader.setControllerFactory(controllerClass -> new EditTeamController(team.getName()));
 			root = loader.load();		
-				
+						
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
@@ -197,31 +191,33 @@ public class EditPlayerController implements Initializable{
 	/**
 	* A GUI Class
 	* Logs out user, brings user to LoginScene. Doesn't save anything. 
-	* TODO - BE Connection? Delete temporary instance of user, team, player?
+	* Deletes temporary team and temporary player if they exist.
+	* OPTIONAL TODO - give user a warning if they haven't saved the team as it will be removed if not saved
 	* 
 	* @param event
 	* @throws IOException
 	* @return void
 	*/
 	public void logout(ActionEvent event)throws IOException
-	{
-		
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Logout");
-		alert.setHeaderText("You're about to logout!");
-		alert.setContentText("Do you want to save before exiting?");
-		
-		if (alert.showAndWait().get() == ButtonType.OK) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
-			root = loader.load();
-					
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-			System.out.println("You successfully logged out!");
-
+	{	
+		if (player.getName().equals(" ")) {
+			team.removePlayer(" ");
 		}
+		if (team.getName().equals("new_team")) {
+			Main.user.removeTeam("new_team");
+		}
+		
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScene.fxml"));
+		root = loader.load();
+				
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		System.out.println("You successfully logged out!");
+
+		
 	}
 
 

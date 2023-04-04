@@ -21,7 +21,6 @@ import coach_o_matic_be.src.coach_o_matic_be.*;
 * <h1>LoginController</h1>
 * LoginController class prompts user for username and password and upon login, brings them to the user menu.
 * User can also create a new account. 
-* TODO - BE Connection
 * 
 * @author  Grace Pearcey
 * @version 1.0
@@ -39,8 +38,7 @@ public class LoginController {
 
 
 		/**
-	    * Brings user to UserMenuScene
-	    * TODO - BE Connection
+	    * Brings user to UserMenuScene if user credentials are created and set
 	    * 
 		* @param event
 		* @throws IOException
@@ -63,7 +61,7 @@ public class LoginController {
 				}
 			}
 			else {
-				//BE Connection - TODO
+				//Check if user credentials are correct
 				if (Main.user.getUsername().equals(username) && Main.user.getPassword().equals(password)) {
 					
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMenuScene.fxml"));
