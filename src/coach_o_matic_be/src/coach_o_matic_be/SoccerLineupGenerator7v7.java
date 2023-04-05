@@ -39,7 +39,13 @@ public class SoccerLineupGenerator7v7{
 					  PlayerNames.add(playerList.get(i1));
 			}
 			PlayerNames.add(0,Integer.toString(i+1));
-				  lineuprows.add(PlayerNames);  
+			for (int i2 = 0; i2 < PlayerNames.size(); i2++) {
+			    String str = PlayerNames.get(i2);
+			    str = str.replace(" ", ""); // remove the space
+			    PlayerNames.set(i2, str); // update the element in the list
+			}
+	    	 System.out.println(PlayerNames);
+	    	 lineuprows.add(PlayerNames);  
 	  }		   
     return lineuprows;
   }
@@ -71,11 +77,11 @@ public class SoccerLineupGenerator7v7{
       
       ArrayList<ArrayList<String>> lineup = SoccerLineupGenerator7v7.generateLineup(playerList, SoccerFormations.TWO_THREE_ONE ,6);
       
-      for (int i = 0; i < lineup.size(); i++) {
-          System.out.println("Lineup for shift " + (i+1) + ": " + lineup.get(i));
-      }
+//      for (int i = 0; i < lineup.size(); i++) {
+//          System.out.println("Lineup for shift " + (i+1) + ": " + lineup.get(i));
+//      }
   }
-          
+
       
 
    }

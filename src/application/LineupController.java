@@ -103,40 +103,32 @@ public class LineupController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
    
     	  shiftColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[0]));
-    	  gkColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(" ,")[1]));
-    	  ldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(" ,")[2]));
-    	  rdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(" ,")[3]));
-    	  lmColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(" ,")[4]));
-    	  cmColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(" ,")[5]));
-    	  rmColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(" ,")[6]));
-    	  stColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(" ,")[7]));
-    	  subColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(" ,")[8]));
+    	  gkColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[1]));
+    	  ldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[2]));
+    	  rdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[3]));
+    	  lmColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[4]));
+    	  cmColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[5]));
+    	  rmColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[6]));
+    	  stColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[7]));
+    	  subColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().split(",")[8]));
+    	  
+    	  
     	 
     	  
     	  ArrayList<String> lineuprows = new ArrayList<>();
     	  
     	  
-//    	  ArrayList<ArrayList<String>> lineupgenerationoutput = SoccerLineupGenerator7v7.generateLineup(selectedPlayers, team.getFormation() ,team.getGameShifts());
-//    	  
-//    	  for (ArrayList<String> lineup : lineupgenerationoutput) {
-//    		    lineuprows.addAll(lineup);
-//    		}
+    	  ArrayList<ArrayList<String>> lineupgenerationoutput = SoccerLineupGenerator7v7.generateLineup(selectedPlayers, team.getFormation() ,team.getGameShifts());
     	  
-    	  
-//    	  lineuprows.addAll(selectedPlayers);
-//    	  lineuprows.add(0, "0");
-    	  
-    	  lineuprows.add("1,John,Doe,Smith,Jane,Doe,Smith,Roe,Sub1");
-    	  lineuprows.add("2,Jane,Doe,Smith,John,Doe,Smith,Roe,Sub2");
-    	  lineuprows.add("3,Smith,Doe,Smith,Doe,Doe,Smith,Roe,Sub3");
-    	  selectedPlayers.add(0, "0");
-    	  lineuprows.addAll(selectedPlayers);
+    	  for (int i =0; i < lineupgenerationoutput.size(); i++) {
+        	  String str = String.join(",", lineupgenerationoutput.get(i));
+        	  System.out.println(str);
+        	  lineuprows.add(str);
+    	  }
     	  lineupTable.getItems().addAll(lineuprows);
     	  System.out.println(lineuprows);
     	  System.out.println(selectedPlayers);
-    	  
-    	  team.getPlayers();
-    	  
+    	  team.getPlayers();  
     }      
     
     
